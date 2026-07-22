@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="5分ごとにGmailを確認し、Geminiで返信下書きを作る朝9時メール秘書の公開用アプリです。">
+  <title>朝9時メール秘書</title>
+  <style>
+    :root{
+      --ink:#172c27;--muted:#62716c;--forest:#174f43;--forest2:#0f3a32;
+      --bg:#eef4ef;--paper:#fff;--line:#d5dfda;--soft:#f5f8f5;
+      --urgent:#a72d2d;--urgent-bg:#ffe2df;--today:#9b5a00;--today-bg:#fff0bd;
+      --later:#355c79;--later-bg:#e5eff7;--question:#64458c;--question-bg:#eee5f8;
+      --done:#477369;--done-bg:#e4f0eb;--shadow:0 16px 48px rgba(23,55,45,.1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;color:var(--ink);background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Yu Gothic UI","Hiragino Kaku Gothic ProN",sans-serif;line-height:1.65}
+    button,input,textarea,select{font:inherit}
+    button,a{touch-action:manipulation}
+    button{cursor:pointer}
+    .app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}
+    aside{position:sticky;top:0;height:100vh;padding:26px 20px;background:#f8fbf8;border-right:1px solid var(--line);display:flex;flex-direction:column}
+    .brand{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+    .mark{display:grid;place-items:center;width:46px;height:46px;border-radius:16px;color:#fff;background:var(--forest);font-size:22px;font-weight:900}
+    .brand small{display:block;color:#7a8b84;font-size:.62rem;font-weight:900;letter-spacing:.14em}
+    .brand strong{font-size:1.12rem}
+    nav{display:grid;gap:6px}
+    .tab{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:46px;padding:8px 12px;border:0;border-radius:13px;color:#4f625b;background:transparent;font-weight:800;text-align:left}
+    .tab.active{color:#fff;background:var(--forest)}
+    .count{display:grid;place-items:center;min-width:27px;height:27px;padding:0 7px;border-radius:999px;background:#e8eeea;font-size:.8rem}
+    .tab.active .count{background:rgba(255,255,255,.18)}
+    .side-card{margin-top:auto;padding:15px;border:1px solid var(--line);border-radius:15px;background:#fff;font-size:.8rem;color:var(--muted)}
+    .side-card strong{display:block;color:var(--ink);margin-bottom:5px}
+    .online{display:inline-block;width:9px;height:9px;margin-right:6px;border-radius:50%;background:#47b887;box-shadow:0 0 0 4px #e4f5ed}
+    main{padding:34px clamp(20px,5vw,64px) 70px}
+    .topbar{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+    .date{margin:0;color:var(--muted);font-size:.82rem;font-weight:800}
+    h1{margin:5px 0 3px;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-.04em;line-height:1.2}
+    .sub{margin:0;color:var(--muted)}
+    .actions{display:flex;flex-wrap:wrap;gap:9px;justify-content:flex-end}
+    .button{display:inline-flex;min-height:45px;align-items:center;justify-content:center;padding:8px 15px;border:1px solid var(--line);border-radius:999px;color:var(--ink);background:#fff;font-weight:850;text-decoration:none}
+    .button.primary{border-color:var(--forest);color:#fff;background:var(--forest)}
+    .button.primary:hover{background:var(--forest2)}
+    .button.soft{color:var(--forest);background:#e7f2ec}
+    .demo-note{display:flex;align-items:center;gap:10px;margin:23px 0 18px;padding:12px 15px;border:1px solid #ddc773;border-radius:14px;background:#fff8d9;color:#684d00;font-size:.88rem}
+    .demo-note strong{white-space:nowrap}
+    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0 26px}
+    .summary-card{padding:16px;border:2px solid transparent;border-radius:17px}
+    .summary-card.urgent{border-color:#d65a53;background:var(--urgent-bg);color:var(--urgent)}
+    .summary-card.today{border-color:#d6a22b;background:var(--today-bg);color:#714300}
+    .summary-card.quick{border-color:#4d9a7a;background:#dff2e8;color:#176346}
+    .summary-card.question{border-color:#8a6ab2;background:var(--question-bg);color:var(--question)}
+    .summary-card span{display:block;font-size:.78rem;font-weight:800}
+    .summary-card strong{display:block;font-size:2rem;line-height:1.15;margin:5px 0}
+    .list-head{display:flex;justify-content:space-between;align-items:end;margin:24px 0 12px}
+    h2{margin:0;font-size:1.3rem}
+    .list-head p{margin:3px 0 0;color:var(--muted);font-size:.86rem}
+    .task-list{display:grid;gap:12px}
+    .task{display:grid;grid-template-columns:7px 1fr auto;gap:16px;align-items:center;padding:18px;border:1px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 7px 24px rgba(28,60,50,.05)}
+    .task-bar{width:7px;height:100%;min-height:74px;border-radius:999px;background:var(--later)}
+    .task.urgent .task-bar{background:var(--urgent)}
+    .task.today .task-bar{background:#d28a00}
+    .task.question .task-bar{background:var(--question)}
+    .task.done .task-bar{background:var(--done)}
+    .meta{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:6px}
+    .badge{display:inline-flex;padding:3px 8px;border-radius:999px;color:#fff;background:var(--later);font-size:.72rem;font-weight:900}
+    .urgent .badge{background:var(--urgent)}.today .badge{background:#a96300}.question .badge{background:var(--question)}.done .badge{background:var(--done)}
+    .sender{color:var(--muted);font-size:.82rem;font-weight:700}
+    .subject{margin:0;font-size:1rem;font-weight:900}
+    .excerpt{margin:5px 0 0;color:var(--muted);font-size:.84rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:720px}
+    .open-task{min-width:80px;min-height:42px;border:1px solid var(--line);border-radius:12px;color:var(--forest);background:#f7faf8;font-weight:900}
+    .empty{padding:50px 20px;border:1px dashed #b9c8c1;border-radius:18px;color:var(--muted);background:#f7faf7;text-align:center}
+    .overlay{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(16,35,29,.48);backdrop-filter:blur(5px)}
+    .overlay.open{display:flex}
+    .modal{position:relative;width:min(760px,100%);max-height:90vh;overflow:auto;border-radius:24px;background:#fff;box-shadow:0 30px 90px rgba(0,0,0,.24)}
+    .modal.wide{width:min(980px,100%)}
+    .modal-head{position:sticky;top:0;z-index:2;display:flex;justify-content:space-between;gap:15px;align-items:center;padding:20px 24px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.97)}
+    .modal-head small{display:block;color:var(--muted);font-weight:800;letter-spacing:.08em}
+    .modal-head h2{margin:2px 0 0}
+    .close{display:grid;place-items:center;width:42px;height:42px;border:0;border-radius:50%;background:#edf2ef;font-size:1.3rem}
+    .modal-body{padding:24px}
+    .field{margin-bottom:17px}
+    .field label{display:block;margin-bottom:6px;font-weight:900}
+    .field select,.field textarea{width:100%;border:2px solid #b8c7c0;border-radius:13px;background:#fff}
+    .field select{min-height:48px;padding:9px 12px}
+    .field textarea{min-height:220px;padding:14px;line-height:1.65;resize:vertical}
+    .chips{display:flex;gap:7px;overflow:auto;padding:2px 0 10px}
+    .chip{flex:0 0 auto;min-height:38px;padding:6px 11px;border:1px solid #bdd0c7;border-radius:999px;color:var(--forest);background:#edf6f1;font-weight:800;font-size:.83rem}
+    .keigo{display:none;margin:10px 0;padding:12px;border-radius:13px;background:var(--question-bg);color:#503271}
+    .keigo.show{display:block}
+    .keigo button{margin-left:7px;padding:5px 9px;border:0;border-radius:9px;color:#fff;background:var(--question);font-weight:800}
+    .modal-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:9px;margin-top:20px}
+    .guide-section{scroll-margin-top:90px;margin-bottom:28px;padding-bottom:23px;border-bottom:1px solid var(--line)}
+    .guide-section:last-child{border-bottom:0}
+    .guide-section h3{margin:0 0 10px;font-size:1.18rem}
+    .flow{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:15px 0}
+    .flow div{position:relative;padding:13px 8px;border-radius:12px;background:#eef4f0;text-align:center;font-weight:900}
+    .flow div:not(:last-child)::after{content:"→";position:absolute;right:-11px;color:#7f9089}
+    .warning,.safe,.info{margin:14px 0;padding:14px 16px;border-radius:13px}
+    .warning{border-left:6px solid var(--urgent);background:var(--urgent-bg)}
+    .safe{border-left:6px solid var(--forest);background:#e5f2eb}
+    .info{border-left:6px solid #4f69a7;background:#edf2ff}
+    .steps{counter-reset:step;list-style:none;padding:0}
+    .steps li{position:relative;margin:0 0 18px;padding-left:45px}
+    .steps li::before{counter-increment:step;content:counter(step);position:absolute;left:0;top:-2px;display:grid;place-items:center;width:33px;height:33px;border-radius:50%;color:#fff;background:var(--forest);font-weight:900}
+    code{padding:2px 6px;border-radius:6px;background:#edf1ef;font-size:.9em;overflow-wrap:anywhere}
+    table{width:100%;border-collapse:collapse;margin:12px 0}th,td{padding:9px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f3f6f4}
+    details{margin-top:12px;border:1px solid var(--line);border-radius:14px;background:#fafcfa}summary{padding:14px 16px;cursor:pointer;color:var(--forest);font-weight:900}.details-body{padding:0 16px 16px}
+    pre{max-height:420px;overflow:auto;padding:15px;border-radius:12px;color:#e8f4ed;background:#10251f;font:12px/1.55 Consolas,monospace;white-space:pre}
+    .toast{position:fixed;z-index:50;left:50%;bottom:25px;transform:translate(-50%,20px);padding:11px 18px;border-radius:999px;color:#fff;background:var(--forest2);opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}
+    @media(max-width:840px){
+      .app{display:block}.app aside{position:static;height:auto;padding:15px}.brand{margin-bottom:12px}nav{display:flex;overflow:auto}.tab{flex:0 0 auto;width:auto;gap:8px}.side-card{display:none}
+      main{padding:22px 15px 80px}.topbar{display:block}.actions{justify-content:flex-start;margin-top:16px}.summary{grid-template-columns:1fr 1fr}.task{grid-template-columns:6px 1fr}.open-task{grid-column:2;width:100%}.flow{grid-template-columns:1fr}.flow div:not(:last-child)::after{content:"↓";right:50%;bottom:-19px;top:auto}
+    }
+    @media(max-width:480px){.summary{grid-template-columns:1fr 1fr}.summary-card{padding:12px}.modal-body{padding:18px}.modal-head{padding:16px}.demo-note{align-items:flex-start}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <div class="brand"><div class="mark">9</div><div><small>MORNING DESK</small><strong>メール秘書</strong></div></div>
+      <nav id="tabs" aria-label="案件一覧">
+        <button class="tab active" data-tab="priority">今日の優先 <span class="count">0</span></button>
+        <button class="tab" data-tab="quick">すぐ返せる <span class="count">0</span></button>
+        <button class="tab" data-tab="working">対応中 <span class="count">0</span></button>
+        <button class="tab" data-tab="question">AIが迷い中 <span class="count">0</span></button>
+        <button class="tab" data-tab="done">完了 <span class="count">0</span></button>
+      </nav>
+      <div class="side-card"><strong><span class="online"></span>5分ごとに確認</strong>Apps Scriptがクラウドで動きます。自動送信はしません。</div>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div><p class="date" id="today"></p><h1>おはようございます</h1><p class="sub">重要度・期限・返信の簡単さで整理します</p></div>
+        <div class="actions">
+          <button class="button soft" id="openGuide">説明・譲渡方法</button>
+          <button class="button" id="openApiGuide">APIを設定する</button>
+          <a class="button primary" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Gmail下書き</a>
+        </div>
+      </div>
+
+      <div class="demo-note"><strong>公開用の見本画面</strong><span>下のメールは見本です。実際のメール本文やAPIキーはGitHubへ保存しません。</span></div>
+
+      <div class="summary">
+        <div class="summary-card urgent"><span>最優先</span><strong id="urgentCount">0</strong>期限が近い</div>
+        <div class="summary-card today"><span>今日の対応</span><strong id="todayCount">0</strong>今日中に確認</div>
+        <div class="summary-card quick"><span>30秒返信</span><strong id="quickCount">0</strong>すぐ返せる</div>
+        <div class="summary-card question"><span>質問が必要</span><strong id="questionCount">0</strong>AIが迷い中</div>
+      </div>
+
+      <div class="list-head"><div><h2 id="listTitle">今日の優先</h2><p id="listDescription">重要度と期限の高い順です</p></div><strong id="visibleCount">0件</strong></div>
+      <div class="task-list" id="taskList"></div>
+    </main>
+  </div>
+
+  <div class="overlay" id="editorOverlay" aria-hidden="true">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
+      <div class="modal-head"><div><small id="editorSender">MAIL</small><h2 id="editorTitle">メールを確認</h2></div><button class="close" data-close="editorOverlay" aria-label="閉じる">×</button></div>
+      <div class="modal-body">
+        <div class="field"><label for="statusSelect">対応状態</label><select id="statusSelect"><option value="working">対応中</option><option value="hold">保留</option><option value="no-reply">返信不要（送信せず完了）</option><option value="done">完了</option></select></div>
+        <div class="field"><label for="replyText">AIの仮返信</label><div class="chips" id="chips"><button class="chip" data-text="ありがとうございます。">ありがとうございます</button><button class="chip" data-text="お忙しい中、ご対応いただきありがとうございました。">お忙しい中ありがとうございました</button><button class="chip" data-text="承知いたしました。">承知しました</button><button class="chip" data-text="引き続きよろしくお願いいたします。">引き続きよろしくお願いします</button></div><textarea id="replyText"></textarea><div class="keigo" id="keigoBox">「おけ」を敬語にしますか？<button id="applyKeigo">承知いたしました。</button></div></div>
+        <div class="modal-actions"><button class="button" data-close="editorOverlay">戻る</button><button class="button primary" id="saveTask">見本を保存</button></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="overlay" id="guideOverlay" aria-hidden="true">
+    <section class="modal wide" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
+      <div class="modal-head"><div><small>GUIDE & TRANSFER</small><h2 id="guideTitle">説明・譲渡方法</h2></div><button class="close" data-close="guideOverlay" aria-label="閉じる">×</button></div>
+      <div class="modal-body">
+        <div class="guide-section"><h3>1．このアプリの動き</h3><div class="flow"><div>Gmail受信</div><div>Apps Script</div><div>Gemini API</div><div>Gmail下書き</div></div><p>GitHubの画面を閉じても、Apps Scriptが5分ごとに確認します。最後の送信はGmailで本人が行います。</p></div>
+
+        <div class="guide-section" id="apiGuide"><h3>2．Gemini APIを別に設定する</h3><div class="warning"><strong>APIキーはこのHTMLへ入力しません。</strong>GitHub Pagesは公開ページなので、書くと他人に盗まれる危険があります。</div><p>譲渡先の人が自分のGoogleアカウントで<a href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener">Gemini APIキー</a>を作り、自分のApps Scriptの「スクリプト プロパティ」へ保存します。</p><table><tbody><tr><th>GEMINI_API_KEY</th><td>譲渡先本人のAPIキー</td></tr><tr><th>DISPLAY_NAME</th><td>譲渡先本人の名前</td></tr><tr><th>PHONE</th><td>譲渡先本人の電話番号</td></tr><tr><th>REPLY_EMAIL</th><td>譲渡先本人のGmail</td></tr></tbody></table><div class="safe">普段使う有料GeminiとGemini APIは別の利用枠です。AI Studioで請求設定をしていなければ、API無料枠を使います。</div></div>
+
+        <div class="guide-section"><h3>3．相手へ譲渡する手順</h3><ol class="steps"><li><strong>このHTMLを渡す</strong><br>GitHubへ<code>index.html</code>として公開するか、HTMLファイルを相手へ渡します。</li><li><strong>相手が自分のAPIキーを作る</strong><br>菜々子さんのAPIキーは渡しません。</li><li><strong>相手が新しいApps Scriptを作る</strong><br><a href="https://script.google.com/home" target="_blank" rel="noopener">Apps Script</a>で新しいプロジェクトを作ります。菜々子さんのプロジェクトを共同利用しません。</li><li><strong>Code.gsを貼る</strong><br>下の「Code.gsをコピー」から全部貼り付けます。</li><li><strong>4つのプロパティを設定する</strong><br>APIキー・名前・電話番号・Gmailを相手自身の内容で入力します。</li><li><strong>setupSecretaryを実行する</strong><br>相手自身のGoogleアカウントで権限を確認し、許可します。</li><li><strong>Gmail下書きとバックアップを確認する</strong><br>自動送信されず、下書きだけ作られることを確認します。</li></ol></div>
+
+        <div class="guide-section"><h3>4．容量の見方</h3><p><a href="https://aistudio.google.com/usage" target="_blank" rel="noopener">AI Studioの使用量</a>と<a href="https://aistudio.google.com/rate-limit?timeRange=last-28-days" target="_blank" rel="noopener">上限画面</a>で「Gemini 2.5 Flash」を確認します。通常、下書き1通で約1リクエストです。コード側は最大3通／5分なので、理論上は最大864通／日です。</p></div>
+
+        <div class="guide-section"><h3>5．安全チェック</h3><ul><li>APIキーをHTML・GitHub・チャットへ書かない</li><li>相手ごとに別のApps ScriptとAPIキーを使う</li><li>実メールをGitHubへ保存しない</li><li>無料Gemini APIで機密メールを扱う場合はGoogleのデータ利用条件を確認する</li></ul><div class="info">HTMLの更新では、Gmail・Apps Script・Google Driveのバックアップは消えません。実データはHTMLとは別の場所にあります。</div></div>
+
+        <div class="guide-section"><h3>6．譲渡用Code.gs</h3><p>秘密情報は含まれていません。APIキーは相手自身が別途設定します。</p><button class="button primary" id="copyCode">Code.gsをコピー</button> <span id="copyStatus" role="status"></span><details><summary>コードを表示</summary><div class="details-body"><pre><code id="codeGs">/**
+ * 朝9時メール秘書：5分ごとにGmailを確認し、返信下書きだけを作ります。
+ * 自動送信・削除・既読化はしません。
+ */
+
+const SECRETARY = {
+  processedLabel: 'メール秘書/下書き作成済み',
+  reviewLabel: 'メール秘書/要確認',
+  excludedLabel: 'メール秘書/対象外',
+  automaticLabel: 'メール秘書/自動通知',
+  // 503が続いたため、Googleが安定版として案内しているモデルを既定にします。
+  model: 'gemini-2.5-flash',
+  maxThreads: 10,
+  maxDraftsPerRun: 3,
+  maxAiAttempts: 3,
+  backupFolderName: '朝9時メール秘書バックアップ',
+  backupColumns: 9
+};
+
+function setupSecretary() {
+  getSettings_();
+  getLabel_(SECRETARY.processedLabel);
+  getLabel_(SECRETARY.reviewLabel);
+  getLabel_(SECRETARY.excludedLabel);
+  getLabel_(SECRETARY.automaticLabel);
+  deleteSecretaryTriggers_();
+  ScriptApp.newTrigger('runSecretary')
+    .timeBased()
+    .everyMinutes(5)
+    .create();
+  runSecretary();
+  console.log('設定完了：5分ごとの自動確認を開始しました。自動送信はしません。');
+}
+
+function runSecretary() {
+  const lock = LockService.getScriptLock();
+  if (!lock.tryLock(1000)) {
+    console.log('前の処理が実行中のため、今回は何もしません。');
+    return;
+  }
+
+  try {
+    cleanupProcessedMarkers_();
+
+    const settings = getSettings_();
+    const processedLabel = getLabel_(SECRETARY.processedLabel);
+    const reviewLabel = getLabel_(SECRETARY.reviewLabel);
+    const automaticLabel = getLabel_(SECRETARY.automaticLabel);
+    const query = [
+      'in:inbox',
+      'newer_than:2d',
+      '-label:"' + SECRETARY.excludedLabel + '"'
+    ].join(' ');
+
+    const threads = GmailApp.search(query, 0, SECRETARY.maxThreads);
+    let created = 0;
+    let skipped = 0;
+    let failed = 0;
+
+    for (let index = 0; index &lt; threads.length; index += 1) {
+      if (created &gt;= SECRETARY.maxDraftsPerRun) break;
+
+      const thread = threads[index];
+      const messages = thread.getMessages();
+      if (!messages.length) continue;
+
+      const latest = messages[messages.length - 1];
+      const messageId = latest.getId();
+      if (wasProcessed_(messageId)) continue;
+
+      const skipReason = getSkipReason_(latest, settings);
+      if (skipReason) {
+        markProcessed_(messageId);
+        thread.addLabel(automaticLabel);
+        if (!tryBackupEvent_(settings, latest, '対象外', skipReason, '')) {
+          thread.addLabel(reviewLabel);
+        }
+        skipped += 1;
+        console.log('対象外（' + skipReason + '）：' + latest.getSubject());
+        continue;
+      }
+
+      try {
+        const receivedBody = cleanBody_(latest.getPlainBody());
+        if (!receivedBody) throw new Error('本文を読み取れませんでした');
+
+        const reply = createReply_(latest, receivedBody, settings);
+        const draftText = addSignature_(reply, settings);
+        latest.createDraftReply(draftText);
+        markProcessed_(messageId);
+        thread.addLabel(processedLabel);
+        thread.removeLabel(reviewLabel);
+        if (!tryBackupEvent_(settings, latest, '下書き作成', '', draftText)) {
+          thread.addLabel(reviewLabel);
+        }
+        created += 1;
+        console.log('下書き作成：' + latest.getSubject());
+      } catch (error) {
+        failed += 1;
+        thread.addLabel(reviewLabel);
+        tryBackupEvent_(settings, latest, 'エラー', String(error), '');
+        console.error('下書き作成失敗：' + latest.getSubject() + ' / ' + String(error));
+
+        // AI全体が一時停止中なら、他のメールでも連続失敗させず次回へ回します。
+        if (error &amp;&amp; error.aiTemporary === true) {
+          console.log('AIが一時的に混雑しています。残りは5分後に再試行します。');
+          break;
+        }
+      }
+    }
+
+    console.log(
+      '今回の結果：下書き' + created + '件、対象外' + skipped + '件、失敗' + failed + '件'
+    );
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function createReply_(message, receivedBody, settings) {
+  const prompt = [
+    'あなたは日本語のメール秘書です。受信メールへの返信下書きだけを作ってください。',
+    'ルール：',
+    '・丁寧で自然な敬語にする',
+    '・メールに書かれていない日時、金額、約束、事実を作らない',
+    '・判断できない場合は、受領したことと確認後に連絡することだけを書く',
+    '・件名、宛先、署名、分析、説明文は出さない',
+    '・200〜500文字程度にする',
+    '',
+    '差出人：' + hideEmail_(message.getFrom()),
+    '件名：' + message.getSubject(),
+    '本文：',
+    receivedBody.slice(0, 6000)
+  ].join('\n');
+
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/'
+    + encodeURIComponent(settings.model)
+    + ':generateContent';
+
+  const data = fetchAiWithRetry_(url, settings.apiKey, {
+    contents: [{role: 'user', parts: [{text: prompt}]}],
+    generationConfig: {temperature: 0.25, maxOutputTokens: 1000}
+  });
+
+  const parts = (((data.candidates || [])[0] || {}).content || {}).parts || [];
+  const reply = parts.map(function(part) { return part.text || ''; }).join('').trim();
+  if (!reply) throw new Error('AIの返信案が空でした');
+  return reply.slice(0, 8000);
+}
+
+function fetchAiWithRetry_(url, apiKey, payload) {
+  const waits = [0, 1500, 4000];
+  let lastStatus = 0;
+  let lastMessage = '';
+
+  for (let attempt = 0; attempt &lt; SECRETARY.maxAiAttempts; attempt += 1) {
+    if (waits[attempt]) Utilities.sleep(waits[attempt]);
+
+    try {
+      const response = UrlFetchApp.fetch(url, {
+        method: 'post',
+        contentType: 'application/json',
+        headers: {'x-goog-api-key': apiKey},
+        muteHttpExceptions: true,
+        payload: JSON.stringify(payload)
+      });
+
+      lastStatus = response.getResponseCode();
+      const data = safeJsonParse_(response.getContentText());
+      if (lastStatus &gt;= 200 &amp;&amp; lastStatus &lt; 300) return data;
+
+      lastMessage = cleanAiErrorMessage_(data);
+      if (!isRetryableStatus_(lastStatus)) {
+        throw createAiError_(lastStatus, lastMessage, false);
+      }
+    } catch (error) {
+      if (error &amp;&amp; error.aiError === true &amp;&amp; error.aiTemporary !== true) throw error;
+      lastMessage = lastMessage || String(error);
+      lastStatus = lastStatus || 503;
+    }
+  }
+
+  throw createAiError_(lastStatus || 503, lastMessage, true);
+}
+
+function createAiError_(status, message, temporary) {
+  const suffix = message ? '（' + String(message).slice(0, 160) + '）' : '';
+  const error = new Error('AI接続エラー：' + status + suffix);
+  error.aiError = true;
+  error.aiTemporary = temporary === true;
+  return error;
+}
+
+function isRetryableStatus_(status) {
+  return status === 429 || status === 500 || status === 502 || status === 503 || status === 504;
+}
+
+function safeJsonParse_(text) {
+  try {
+    return JSON.parse(String(text || '{}'));
+  } catch (error) {
+    return {};
+  }
+}
+
+function cleanAiErrorMessage_(data) {
+  const message = data &amp;&amp; data.error &amp;&amp; data.error.message ? data.error.message : '';
+  return String(message).replace(/[\r\n]+/g, ' ').trim();
+}
+
+function getSettings_() {
+  const p = PropertiesService.getScriptProperties();
+  const settings = {
+    apiKey: p.getProperty('GEMINI_API_KEY') || '',
+    name: p.getProperty('DISPLAY_NAME') || '',
+    phone: p.getProperty('PHONE') || '',
+    email: p.getProperty('REPLY_EMAIL') || Session.getEffectiveUser().getEmail() || '',
+    model: p.getProperty('GEMINI_MODEL') || SECRETARY.model,
+    backupEnabled: p.getProperty('BACKUP_ENABLED') !== 'false'
+  };
+
+  const missing = [];
+  if (!settings.apiKey) missing.push('GEMINI_API_KEY');
+  if (!settings.name) missing.push('DISPLAY_NAME');
+  if (!settings.phone) missing.push('PHONE');
+  if (missing.length) throw new Error('未設定：' + missing.join(', '));
+  return settings;
+}
+
+function pauseSecretary() {
+  deleteSecretaryTriggers_();
+  console.log('自動確認を停止しました。下書きは削除しません。');
+}
+
+function resumeSecretary() {
+  getSettings_();
+  deleteSecretaryTriggers_();
+  ScriptApp.newTrigger('runSecretary').timeBased().everyMinutes(5).create();
+  console.log('5分ごとの自動確認を再開しました。自動送信はしません。');
+}
+
+function deleteSecretaryTriggers_() {
+  ScriptApp.getProjectTriggers().forEach(function(trigger) {
+    if (trigger.getHandlerFunction() === 'runSecretary') {
+      ScriptApp.deleteTrigger(trigger);
+    }
+  });
+}
+
+function getLabel_(name) {
+  return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
+}
+
+function wasProcessed_(messageId) {
+  return Boolean(PropertiesService.getScriptProperties().getProperty('DONE_' + messageId));
+}
+
+function markProcessed_(messageId) {
+  PropertiesService.getScriptProperties().setProperty('DONE_' + messageId, String(Date.now()));
+}
+
+function cleanupProcessedMarkers_() {
+  const properties = PropertiesService.getScriptProperties();
+  const lastCleanup = Number(properties.getProperty('LAST_DONE_CLEANUP') || 0);
+  const now = Date.now();
+  if (now - lastCleanup &lt; 24 * 60 * 60 * 1000) return;
+
+  const all = properties.getProperties();
+  const cutoff = now - 30 * 24 * 60 * 60 * 1000;
+  const legacy = {};
+
+  Object.keys(all).forEach(function(key) {
+    if (key.indexOf('DONE_') !== 0) return;
+
+    if (all[key] === '1') {
+      // 旧版の記録は消さず、現在時刻へ変換して重複下書きを防ぎます。
+      legacy[key] = String(now);
+      return;
+    }
+
+    const savedAt = Number(all[key]);
+    if (savedAt &amp;&amp; savedAt &lt; cutoff) properties.deleteProperty(key);
+  });
+
+  if (Object.keys(legacy).length) properties.setProperties(legacy, false);
+  properties.setProperty('LAST_DONE_CLEANUP', String(now));
+}
+
+function getSkipReason_(message, settings) {
+  if (message.isDraft()) return '下書き';
+  if (isMyMessage_(message, settings.email)) return '自分から送ったメール';
+
+  const sender = [message.getFrom(), message.getReplyTo()].join(' ');
+  if (/(?:no[._-]?reply|do[._-]?not[._-]?reply|mailer-daemon|postmaster|bounce|notifications?)[@&gt;\s]/i.test(sender)) {
+    return '自動送信アドレス';
+  }
+
+  const autoSubmitted = String(message.getHeader('Auto-Submitted') || '').trim();
+  if (autoSubmitted &amp;&amp; !/^no$/i.test(autoSubmitted)) return '自動送信ヘッダー';
+
+  const precedence = String(message.getHeader('Precedence') || '').trim();
+  if (/^(?:bulk|list|junk)$/i.test(precedence)) return '一斉配信';
+  if (String(message.getHeader('List-Id') || '').trim()) return 'メーリングリスト';
+  if (String(message.getHeader('X-Auto-Response-Suppress') || '').trim()) return '自動通知ヘッダー';
+
+  const subject = String(message.getSubject() || '');
+  const automaticSubject = /(?:発送(?:についてのご案内|のお知らせ|中です|完了)|出荷(?:のお知らせ|完了)|配送(?:のお知らせ|状況|完了)|ご注文.*(?:受け付けました|受付|確認|完了)|注文(?:受付|確認|完了)|カード(?:利用|ご利用|ご請求)|ご請求金額|定期購入が更新|お支払い(?:完了|確認)|決済完了|領収書|認証コード|ログインコード|ワンタイムパスワード|本人確認コード|メールアドレス確認|登録完了|予約完了|shipping (?:notice|confirmation|update)|order (?:received|confirmation|shipped)|payment (?:received|confirmation)|receipt|invoice|verification code|one[- ]time passcode)/i;
+  if (automaticSubject.test(subject)) return '通知メールの件名';
+
+  return '';
+}
+
+function isMyMessage_(message, email) {
+  return email &amp;&amp; String(message.getFrom()).toLowerCase().indexOf(String(email).toLowerCase()) &gt;= 0;
+}
+
+function cleanBody_(body) {
+  return String(body || '')
+    .replace(/\r\n/g, '\n')
+    .split(/\n(?:On .+ wrote:|20\d{2}年.+(?:書きました|送信):)/i)[0]
+    .replace(/\n{4,}/g, '\n\n')
+    .trim();
+}
+
+function addSignature_(reply, settings) {
+  const signature = [settings.name, 'TEL ' + settings.phone, settings.email]
+    .filter(Boolean)
+    .join('\n');
+  return String(reply).trim() + '\n\n' + signature;
+}
+
+function hideEmail_(value) {
+  return String(value || '').replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[メールアドレス]');
+}
+
+/**
+ * バックアップは月ごとのGoogleスプレッドシートに記録します。
+ * 元メールはGmailに残し、ここには処理履歴と作成した下書きを保存します。
+ */
+function tryBackupEvent_(settings, message, status, detail, draftText) {
+  if (!settings.backupEnabled) return true;
+
+  try {
+    appendBackupEvent_(message, status, detail, draftText);
+    return true;
+  } catch (error) {
+    console.error('バックアップ失敗：' + String(error));
+    return false;
+  }
+}
+
+function appendBackupEvent_(message, status, detail, draftText) {
+  const spreadsheet = getMonthlyBackupSpreadsheet_(new Date());
+  const sheet = spreadsheet.getSheets()[0];
+  sheet.appendRow([
+    new Date(),
+    message.getDate(),
+    status,
+    String(detail || '').slice(0, 500),
+    String(message.getSubject() || '').slice(0, 1000),
+    String(message.getFrom() || '').slice(0, 1000),
+    message.getThread().getId(),
+    message.getId(),
+    String(draftText || '').slice(0, 8000)
+  ]);
+}
+
+function getMonthlyBackupSpreadsheet_(date) {
+  const properties = PropertiesService.getScriptProperties();
+  const yearMonth = Utilities.formatDate(date, 'Asia/Tokyo', 'yyyy-MM');
+  const propertyName = 'BACKUP_SHEET_' + yearMonth.replace('-', '_');
+  const existingId = properties.getProperty(propertyName);
+
+  if (existingId) {
+    try {
+      return SpreadsheetApp.openById(existingId);
+    } catch (error) {
+      // 削除・移動されていた場合は、新しい月別バックアップを作ります。
+      properties.deleteProperty(propertyName);
+    }
+  }
+
+  const spreadsheet = SpreadsheetApp.create('メール秘書バックアップ ' + yearMonth);
+  const sheet = spreadsheet.getSheets()[0];
+  sheet.setName('記録');
+  sheet.getRange(1, 1, 1, SECRETARY.backupColumns).setValues([[
+    '処理日時', '受信日時', '状態', '詳細', '件名', '差出人',
+    'スレッドID', 'メッセージID', '作成した下書き'
+  ]]);
+  sheet.setFrozenRows(1);
+
+  const folder = getOrCreateBackupFolder_();
+  DriveApp.getFileById(spreadsheet.getId()).moveTo(folder);
+  properties.setProperty(propertyName, spreadsheet.getId());
+  return spreadsheet;
+}
+
+function getOrCreateBackupFolder_() {
+  const properties = PropertiesService.getScriptProperties();
+  const existingId = properties.getProperty('BACKUP_FOLDER_ID');
+
+  if (existingId) {
+    try {
+      return DriveApp.getFolderById(existingId);
+    } catch (error) {
+      properties.deleteProperty('BACKUP_FOLDER_ID');
+    }
+  }
+
+  const folder = DriveApp.createFolder(SECRETARY.backupFolderName);
+  properties.setProperty('BACKUP_FOLDER_ID', folder.getId());
+  return folder;
+}
+
+function stopBackup() {
+  PropertiesService.getScriptProperties().setProperty('BACKUP_ENABLED', 'false');
+  console.log('自動バックアップを停止しました。既存のバックアップは削除しません。');
+}
+
+function startBackup() {
+  PropertiesService.getScriptProperties().setProperty('BACKUP_ENABLED', 'true');
+  console.log('自動バックアップを開始しました。次のメール処理からGoogle Driveへ記録します。');
+}
+
+/**
+ * 初回確認用です。空の今月分バックアップ表だけをGoogle Driveへ作ります。
+ * メールの送信・下書き作成・偽データの追加はしません。
+ */
+function prepareBackup() {
+  const settings = getSettings_();
+  if (!settings.backupEnabled) {
+    throw new Error('バックアップが停止中です。startBackup を実行してからやり直してください。');
+  }
+  const spreadsheet = getMonthlyBackupSpreadsheet_(new Date());
+  console.log('バックアップ準備完了：' + spreadsheet.getUrl());
+}
+
+/**
+ * 7年保存のための計画確認です。テスト用データは一切作りません。
+ */
+function showSevenYearBackupPlan() {
+  const months = 7 * 12;
+  const maxEventsPerDay = SECRETARY.maxThreads * (24 * 60 / 5);
+  const maxRowsPerMonth = maxEventsPerDay * 31;
+  const maxCellsPerMonth = maxRowsPerMonth * SECRETARY.backupColumns;
+  console.log(
+    '7年保存計画：月別' + months + '冊。最大でも1か月あたり約' +
+    maxRowsPerMonth.toLocaleString() + '行（約' + maxCellsPerMonth.toLocaleString() +
+    'セル）です。実際の保存量はメール件数とGoogle Driveの空き容量により変わります。'
+  );
+}
+</code></pre></div></details></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const tasks=[
+        {id:1,tab:'priority',level:'urgent',label:'最優先',sender:'青葉商事・山田様',subject:'契約書の確認について',excerpt:'明日までに内容をご確認いただけますでしょうか。',status:'working',reply:'山田様\n\nご連絡いただきありがとうございます。\n契約書の内容を確認し、改めてご連絡いたします。\n\nどうぞよろしくお願いいたします。'},
+        {id:2,tab:'quick',level:'today',label:'今日',sender:'みなと企画・佐藤様',subject:'お打ち合わせ日程のご相談',excerpt:'来週火曜日の午後はいかがでしょうか。',status:'working',reply:'佐藤様\n\nご連絡ありがとうございます。\n来週火曜日の午後で承知いたしました。詳細を確認のうえ、ご連絡いたします。\n\nよろしくお願いいたします。'},
+        {id:3,tab:'working',level:'later',label:'対応中',sender:'高橋様',subject:'資料をお送りいただきありがとうございます',excerpt:'内容を確認後、改めてご連絡いたします。',status:'working',reply:'高橋様\n\n資料をお送りいただき、ありがとうございます。\n内容を確認し、必要がございましたら改めてご連絡いたします。\n\n引き続きよろしくお願いいたします。'},
+        {id:4,tab:'question',level:'question',label:'質問が必要',sender:'中央制作・鈴木様',subject:'納品形式について',excerpt:'どちらの形式で納品すればよいでしょうか。',status:'working',reply:'鈴木様\n\nご連絡いただきありがとうございます。\n納品形式について確認のうえ、改めてご案内いたします。\n\nよろしくお願いいたします。'},
+        {id:5,tab:'done',level:'done',label:'返信不要で完了',sender:'サンプルストア',subject:'商品発送のお知らせ',excerpt:'ご注文の商品を発送しました。',status:'done',reply:''}
+      ];
+      let currentTab='priority';
+      let editingId=null;
+      let selectedStatus='working';
+      const titles={priority:['今日の優先','重要度と期限の高い順です'],quick:['すぐ返せる','短い返信で完了できる案件です'],working:['対応中','下書きを確認中の案件です'],question:['AIが迷い中','本人の判断や追加確認が必要です'],done:['完了','完了した記録です']};
+      const list=document.getElementById('taskList');
+      const editor=document.getElementById('editorOverlay');
+      const guide=document.getElementById('guideOverlay');
+      const reply=document.getElementById('replyText');
+      const status=document.getElementById('statusSelect');
+      const toast=document.getElementById('toast');
+
+      document.getElementById('today').textContent=new Intl.DateTimeFormat('ja-JP',{month:'long',day:'numeric',weekday:'long'}).format(new Date());
+      function counts(tab){return tasks.filter(t=>t.tab===tab).length}
+      function render(){
+        document.querySelectorAll('.tab').forEach(b=>{b.classList.toggle('active',b.dataset.tab===currentTab);b.querySelector('.count').textContent=counts(b.dataset.tab)});
+        document.getElementById('urgentCount').textContent=tasks.filter(t=>t.level==='urgent'&&t.tab!=='done').length;
+        document.getElementById('todayCount').textContent=tasks.filter(t=>['urgent','today'].includes(t.level)&&t.tab!=='done').length;
+        document.getElementById('quickCount').textContent=counts('quick');
+        document.getElementById('questionCount').textContent=counts('question');
+        document.getElementById('listTitle').textContent=titles[currentTab][0];
+        document.getElementById('listDescription').textContent=titles[currentTab][1];
+        const visible=tasks.filter(t=>t.tab===currentTab);
+        document.getElementById('visibleCount').textContent=visible.length+'件';
+        list.innerHTML=visible.length?visible.map(t=>`<article class="task ${t.level}"><div class="task-bar"></div><div><div class="meta"><span class="badge">${escapeHtml(t.label)}</span><span class="sender">${escapeHtml(t.sender)}</span></div><p class="subject">${escapeHtml(t.subject)}</p><p class="excerpt">${escapeHtml(t.excerpt)}</p></div>${t.tab==='done'?'':`<button class="open-task" data-id="${t.id}">開く</button>`}</article>`).join(''):'<div class="empty"><strong>この一覧は空です</strong><br>完了していない案件は翌日も残ります。</div>';
+        document.querySelectorAll('.open-task').forEach(b=>b.addEventListener('click',()=>openEditor(Number(b.dataset.id))));
+      }
+      function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+      function setStatusValue(value){selectedStatus=value;Array.from(status.options).forEach(option=>{option.selected=option.value===value});status.value=value}
+      function getStatusValue(){return selectedStatus}
+      function openEditor(id){const task=tasks.find(t=>t.id===id);if(!task)return;editingId=id;document.getElementById('editorTitle').textContent=task.subject;document.getElementById('editorSender').textContent=task.sender;setStatusValue(task.status==='done'?'done':'working');reply.value=task.reply||'ご連絡いただきありがとうございます。\n内容を確認し、改めてご連絡いたします。\n\nよろしくお願いいたします。';checkKeigo();openOverlay(editor)}
+      function openOverlay(el){el.classList.add('open');el.setAttribute('aria-hidden','false')}
+      function closeOverlay(el){el.classList.remove('open');el.setAttribute('aria-hidden','true')}
+      function showToast(text){toast.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2300)}
+      function insertText(text){const signature='\n\nよろしくお願いいたします。';const value=reply.value;if(value.includes(signature)){reply.value=value.replace(signature,'\n'+text+signature)}else{reply.value=value.trim()+'\n'+text}reply.focus();checkKeigo()}
+      function checkKeigo(){document.getElementById('keigoBox').classList.toggle('show',/(^|[\s、。])おけ([\s、。]|$)/.test(reply.value))}
+
+      document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;currentTab=b.dataset.tab;render()});
+      document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeOverlay(document.getElementById(b.dataset.close))));
+      document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeOverlay(o)}));
+      document.getElementById('openGuide').addEventListener('click',()=>openOverlay(guide));
+      document.getElementById('openApiGuide').addEventListener('click',()=>{openOverlay(guide);setTimeout(()=>document.getElementById('apiGuide').scrollIntoView({behavior:'smooth',block:'start'}),50)});
+      document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)insertText(b.dataset.text)});
+      status.addEventListener('change',()=>{selectedStatus=status.value});
+      reply.addEventListener('input',checkKeigo);
+      document.getElementById('applyKeigo').addEventListener('click',()=>{reply.value=reply.value.replace(/(^|[\s、。])おけ(?=[\s、。]|$)/,'$1承知いたしました。');checkKeigo()});
+      document.getElementById('saveTask').addEventListener('click',()=>{const task=tasks.find(t=>t.id===editingId);if(!task)return;const selectedStatus=getStatusValue();task.reply=reply.value.trim()||'ご連絡いただきありがとうございます。内容を確認し、改めてご連絡いたします。';task.status=selectedStatus;if(['no-reply','done'].includes(selectedStatus)){task.tab='done';task.level='done';task.label=selectedStatus==='no-reply'?'返信不要で完了':'完了';showToast(selectedStatus==='no-reply'?'送信せず、返信不要として完了しました':'完了として保存しました')}else if(selectedStatus==='hold'){task.tab='working';task.level='later';task.label='保留';showToast('保留として保存しました')}else{task.tab='working';task.level='later';task.label='対応中';showToast('見本の下書きを保存しました')}closeOverlay(editor);render()});
+      document.getElementById('copyCode').addEventListener('click',async()=>{const out=document.getElementById('copyStatus');try{await navigator.clipboard.writeText(document.getElementById('codeGs').textContent);out.textContent='コピーしました。'}catch(error){out.textContent='コピーできませんでした。コードを選択してコピーしてください。'}});
+      render();
+    }());
+  </script>
+</body>
+</html>
