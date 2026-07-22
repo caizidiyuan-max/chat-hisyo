@@ -115,6 +115,76 @@
       main{padding:22px 15px 80px}.topbar{display:block}.actions{justify-content:flex-start;margin-top:16px}.summary{grid-template-columns:1fr 1fr}.task{grid-template-columns:6px 1fr}.open-task{grid-column:2;width:100%}.flow{grid-template-columns:1fr}.flow div:not(:last-child)::after{content:"↓";right:50%;bottom:-19px;top:auto}
     }
     @media(max-width:480px){.summary{grid-template-columns:1fr 1fr}.summary-card{padding:12px}.modal-body{padding:18px}.modal-head{padding:16px}.demo-note{align-items:flex-start}}
+
+    /* 元の「静かなデザイン」へ復元 */
+    :root{--ink:#17211e;--muted:#6d7873;--line:#dce2dd;--paper:#fff;--bg:#eef2ec;--forest:#173f35;--green:#dceee5;--amber:#d9822b;--red:#bd4f43}
+    body{color:var(--ink);background:radial-gradient(circle at 90% 5%,#d9e9df 0,transparent 28rem),var(--bg);font-family:Arial,"Yu Gothic",sans-serif;font-size:initial;line-height:normal}
+    .app{min-height:100vh;display:grid;grid-template-columns:248px 1fr}
+    aside{position:sticky;top:0;height:100vh;padding:28px 20px;background:#fbfdfacc;border-right:1px solid #173f3518;display:flex;flex-direction:column;gap:24px;z-index:20}
+    .brand{gap:12px;margin:0}.mark{width:43px;height:43px;border-radius:15px;background:var(--forest);font-size:22px}.brand small{font-size:9px;letter-spacing:.15em;color:#819088}.brand strong{display:block;margin:2px 0 0;font-size:18px}
+    nav{display:grid;gap:7px}.tab{height:46px;min-height:46px;padding:0 12px;border-radius:13px;font-size:12px;color:#66736c}.tab.active{background:var(--forest)}.count{min-width:25px;height:auto;padding:4px;border-radius:99px;background:#173f3513}.tab.active .count{background:#ffffff20}
+    .learn{margin-top:auto;padding:16px;border:1px solid #d9e3dc;border-radius:18px;background:#f4f8f3}.learn strong{font-size:11px}.learn>div{height:7px;margin:11px 0;border-radius:10px;background:#dfe7df}.learn i{display:block;height:100%;border-radius:inherit;background:#39735e}.learn p{margin:0;color:var(--muted);font-size:9px;line-height:1.5}.side-card{margin-top:0;padding:14px;border:1px solid var(--line);border-radius:15px;background:#fff;color:var(--muted);font-size:9px;line-height:1.5}.side-card strong{display:block;margin:0;color:var(--ink);font-size:11px}.side-card small{display:block;margin:5px 0 10px 15px;font-size:9px}.side-card p{margin:0;padding-top:9px;border-top:1px dashed var(--line)}.online{width:8px;height:8px;margin-right:7px;background:#58a377;box-shadow:0 0 0 4px #e7f5ec}
+    main{min-width:0;padding:36px clamp(22px,4vw,58px) 80px}
+    .topbar{display:flex;justify-content:space-between;gap:25px;align-items:flex-start;margin-bottom:24px}.date{margin:0 0 8px;font-size:11px;color:var(--muted)}h1{margin:0;font-size:clamp(27px,3vw,38px);letter-spacing:-.04em;line-height:1.2}.sub{margin-top:9px;font-size:12px;color:var(--muted)}
+    .actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap;margin:0}.button{min-height:42px;padding:0 14px;border:1px solid #d5ddd7;border-radius:13px;background:#ffffffc0;color:var(--ink);font-size:10px;font-weight:900}.button.soft{background:#ffffffc0;color:var(--ink)}.button.primary{border:0;background:var(--forest);color:#fff}
+    .demo-note{margin:0 0 18px;padding:10px 14px;border:1px solid #e4cf9a;border-radius:14px;background:#fff8e7;color:#75561d;font-size:9px}.demo-note strong{font-size:10px}
+    .summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:0 0 26px}.summary-card{padding:15px;border:1px solid var(--line);border-radius:18px;background:#ffffffc4}.summary-card span{font-size:9px;color:var(--muted)}.summary-card strong{font-size:27px;margin:7px 0 3px;line-height:1}.summary-card.urgent{border-color:#c94a40;background:#ffe2de;color:var(--red)}.summary-card.today{border-color:#d39225;background:#fff0c2;color:#955000}.summary-card.quick{border-color:#39835f;background:#def2e5;color:#216b49}.summary-card.question{border-color:#7c5da3;background:#eee5f7;color:#65438c}
+    .list-head{display:flex;justify-content:space-between;align-items:end;margin:0 0 12px}.list-head h2{font-size:16px}.list-head p,.list-head>strong{font-size:10px;color:var(--muted)}.task-list{gap:9px}
+    .task{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 88px;gap:12px;padding:0;border:1px solid var(--line);border-radius:19px;background:#ffffffdd;box-shadow:none}.task-bar{position:absolute;left:0;top:0;bottom:0;width:4px;height:auto;min-height:0;border-radius:0;background:#416b91}.task.urgent{border-color:#c94a40;background:#fff0ee}.task.today{border-color:#d39225;background:#fff8df}.task.question{border-color:#7898b5;background:#f1f7fc}.task.done{grid-template-columns:1fr}.task>div:nth-child(2){padding:16px 0 15px 19px;min-width:0}.meta{gap:8px;margin:0}.avatar{width:31px;height:31px;border-radius:10px;background:#e1ebe4;color:var(--forest);display:grid;place-items:center;font-size:11px}.sender{color:var(--ink);font-size:11px}.badge{margin-left:auto;padding:5px 8px;border-radius:99px;font-size:8px}.urgent .badge{background:#b42318}.today .badge{background:#b85d00}.question .badge{background:#416b91}.done .badge{background:#315d4c}.subject{margin:11px 0 5px;font-size:13px}.excerpt{margin:0;font-size:10px;max-width:none}.task footer{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.task footer span{padding:4px 7px;border-radius:7px;background:#f0f4ef;color:#647168;font-size:8px}.open-task{align-self:stretch;min-width:0;height:auto;border:0;border-left:1px solid #edf0ed;border-radius:0;background:#fafcfa;color:var(--ink);font-size:9px}.empty{min-height:160px;padding:0;display:grid;place-content:center;gap:7px;border:2px dashed #cbd5ce;border-radius:18px;background:#ffffffa8;font-size:12px}
+    .timelineDemo{overflow:hidden;border:1px solid #d6dfd8;border-radius:18px;background:#fff;box-shadow:0 13px 36px #264a3c0b}.timelineLegend{display:flex;gap:12px;padding:10px 12px;border-bottom:1px solid var(--line);background:#f8faf8}.timelineLegend span{display:flex;align-items:center;gap:5px;color:#68766f;font-size:8px;font-weight:800}.timelineLegend i{width:9px;height:9px;border-radius:3px}.urgentDot{background:#bd4f43}.todayDot{background:#c88631}.laterDot{background:#3e70a7}.timelineRow{min-height:72px;display:grid;grid-template-columns:220px 1fr;border-bottom:1px solid #edf0ed}.timelineRow:last-child{border-bottom:0}.timelineRow>strong{padding:25px 16px;border-right:1px solid #dfe5e0;font-size:10px}.timelineRow>div{position:relative;margin:13px 18px;border-radius:12px;background:#3e70a7;color:#fff}.timelineRow>div.todayLine{background:#c88631}.timelineRow>div i{position:absolute;left:8px;top:8px;bottom:8px;width:3px;border-radius:4px;background:#ffffff70}.timelineRow>div span{display:block;padding:13px 18px;font-size:9px;font-weight:900}
+    #editorOverlay.open{display:block;padding:0;background:transparent;backdrop-filter:none;pointer-events:none}#editorOverlay .modal{position:fixed;right:0;top:0;bottom:0;width:min(430px,100vw);max-height:none;height:100vh;overflow:auto;border-radius:0;border-left:1px solid var(--line);background:#fff;box-shadow:-18px 0 50px #1a2c2522;pointer-events:auto}#editorOverlay .modal-head{position:relative;padding:32px 28px 16px;border:0}#editorOverlay .modal-head small{font-size:9px}#editorOverlay .modal-head h2{margin:18px 45px 0 0;font-size:22px}#editorOverlay .modal-body{padding:0 28px 32px}#editorOverlay .close{right:19px;top:18px;width:34px;height:34px}.field{margin-bottom:16px}.field label{font-size:10px}.field select{height:37px;min-height:37px;font-size:10px}.field textarea{min-height:185px;padding:15px;border:1px solid #ccd6cf;border-radius:15px;font-size:11px;line-height:1.75}.chips{gap:7px}.chip{min-height:37px;padding:0 11px;font-size:9px}.keigo{font-size:10px}.modal-actions .button{font-size:10px}
+    #guideOverlay .modal{border-radius:24px}#guideOverlay .modal-head{padding:20px 24px}#guideOverlay .modal-body{padding:24px}.guide-section h3{font-size:16px}.guide-section,.guide-section p,.guide-section li,.guide-section td,.guide-section th{font-size:10px;line-height:1.65}.warning,.safe,.info{font-size:10px}
+    .toast{font-size:10px}
+    @media(max-width:860px){.app{display:block}.app>aside{display:none}main{padding:24px 16px 105px}.topbar{display:block}.actions{margin-top:18px;justify-content:flex-start}.actions .button{flex:1}.summary{grid-template-columns:1fr 1fr;margin-bottom:18px}.task{grid-template-columns:1fr}.task>div:nth-child(2){padding-right:16px}.open-task{height:38px;border:0;border-top:1px solid #edf0ed}.demo-note{align-items:flex-start}.modal{max-height:94vh}.field textarea{min-height:240px;font-size:16px}#editorOverlay .modal{width:100%;padding-bottom:env(safe-area-inset-bottom)}#editorOverlay .modal-head{padding:24px 18px 16px}#editorOverlay .modal-body{padding:0 18px 28px}}
+
+    /* 静かな見た目は維持し、文字の視認性だけを高める */
+    :root{--muted:#4f5e58}
+    body{font-size:16px;line-height:1.5}
+    .brand small{font-size:11px;color:#52625b}.brand strong{font-size:20px}
+    .tab{font-size:15px;color:#42534c}.count{font-size:12px}
+    .learn strong,.side-card strong{font-size:14px}.learn p,.side-card,.side-card small{font-size:12px;line-height:1.65}
+    .date,.sub{font-size:14px}.button{font-size:13px}.demo-note{font-size:13px}.demo-note strong{font-size:14px}
+    .summary-card span{font-size:13px}.summary-card strong{font-size:30px}
+    .list-head h2{font-size:20px}.list-head p,.list-head>strong{font-size:13px}
+    .avatar{font-size:14px}.sender{font-size:14px}.badge{font-size:11px}.subject{font-size:16px;line-height:1.45}.excerpt{font-size:14px;line-height:1.55}.task footer span{font-size:12px}.open-task{font-size:14px;font-weight:800}
+    .timelineLegend span{font-size:12px}.timelineRow>strong{font-size:13px}.timelineRow>div span{font-size:13px}
+    #editorOverlay .modal-head small{font-size:12px}.field label,.field select{font-size:14px}.field textarea{font-size:16px}.chip,.keigo,.modal-actions .button{font-size:13px}
+    .guide-section h3{font-size:18px}.guide-section,.guide-section p,.guide-section li,.guide-section td,.guide-section th,.warning,.safe,.info{font-size:14px;line-height:1.75}.toast{font-size:13px}
+
+    /* 添付された5画面を基準にした最終UI */
+    body{overflow-x:hidden;color:#18302a;background:radial-gradient(circle at 93% 4%,#dcebe2 0,transparent 34rem),#eef3ed;font-family:"Yu Gothic UI","Hiragino Kaku Gothic ProN",Arial,sans-serif}
+    .app{grid-template-columns:248px minmax(0,1fr)}
+    aside{padding:31px 20px 20px;background:#fbfcfa;border-right:1px solid #dbe3dd;gap:26px}
+    .brand{align-items:center}.mark{width:48px;height:48px;border-radius:16px;font-size:23px}.brand small{font-size:10px}.brand strong{font-family:serif;font-size:21px;font-weight:500}
+    nav{gap:8px}.tab{height:54px;padding:0 17px;border-radius:16px;font-size:15px;font-weight:800}.count{min-width:30px;padding:5px 8px;font-size:13px}
+    .learn{padding:19px;border-radius:20px}.learn strong,.side-card strong{font-size:14px}.learn p,.side-card,.side-card small{font-size:12px}
+    main{padding:43px clamp(38px,4.2vw,84px) 80px;transition:padding-right .25s ease}
+    .topbar{align-items:center;margin-bottom:36px}.date{font-size:14px;font-weight:800}h1{margin-top:18px;font-family:serif;font-size:clamp(38px,3vw,54px);font-weight:400;letter-spacing:.06em}.sub{margin-top:18px;font-size:15px}
+    .actions{gap:12px}.button{min-height:52px;padding:0 20px;border-radius:16px;font-size:14px;background:#fff;font-weight:850}
+    .summary{gap:14px;margin-bottom:37px}.summary-card{min-height:156px;padding:22px 24px;border-radius:25px}.summary-card span{font-size:14px}.summary-card strong{margin:16px 0 9px;font-size:36px}
+    .list-head{margin:0 0 18px}.list-head h2{font-family:serif;font-size:28px;font-weight:500}.list-head p,.list-head>strong{font-size:14px}
+    .task-list{gap:15px}.task{min-height:150px;grid-template-columns:1fr 126px;border-radius:25px}.task>div:nth-child(2){padding:22px 8px 20px 28px}.task-bar{width:6px}.avatar{width:43px;height:43px;border-radius:13px;font-size:23px}.sender{font-size:15px}.badge{padding:6px 11px;font-size:12px}.subject{margin:17px 0 8px;font-family:serif;font-size:19px;font-weight:500}.excerpt{font-size:14px}.task footer{margin-top:13px}.task footer span{padding:5px 9px;font-size:12px}.open-task{font-size:15px;background:#fff}.task.done{cursor:pointer}.task.done:hover{filter:brightness(.985)}
+    .task.today{background:#fff7d9}.task.later,.task.question{background:#eef5fb}.task.urgent{background:#ffedeb}.task.done.urgent{background:#ffedeb}
+    .detail-panel{position:fixed;z-index:35;display:block;top:0;right:0;width:min(430px,100vw);height:100vh;overflow:auto;padding:28px 28px 24px;background:#fff;border-left:1px solid #dbe3dd;box-shadow:-18px 0 46px rgba(26,47,40,.09);transform:translateX(105%);transition:transform .25s ease}.detail-panel.open{transform:none}.detail-close{position:absolute;right:20px;top:18px;width:42px;height:42px;border:0;border-radius:50%;background:#f0f3f0;font-size:21px}.detail-kicker{display:flex;align-items:center;gap:10px;padding-right:50px;font-size:12px;font-weight:800}.detail-kicker .priority-pill{padding:5px 10px;border-radius:999px;color:#fff;background:#b85d00}.detail-panel.urgent-panel .priority-pill{background:#b42318}.certainty{color:#4d5b55}.detail-panel h2{margin:22px 50px 19px 0;font-family:serif;font-size:26px;font-weight:500;line-height:1.35}.person{display:flex;align-items:center;gap:11px}.person .avatar{flex:0 0 auto}.person strong{display:block;font-size:15px}.person small{display:block;color:var(--muted);font-size:11px}.incoming{margin:20px 0 24px;padding:17px 18px;border-radius:18px;background:#f3f5f2;font-size:13px;line-height:1.65}.section-label{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:10px}.section-label b{font-family:serif;font-size:19px}.section-label small{color:#668077;font-size:10px;font-weight:800;letter-spacing:.13em}.ai-chip{padding:5px 9px;border-radius:999px;background:#e1eee7;color:#315b4b;font-size:10px;font-weight:800}.reply-area{width:100%;min-height:200px;padding:17px;border:1px solid #cbd5ce;border-radius:17px;background:#fff;font-size:15px;line-height:1.8;resize:vertical}.quick-box,.signature-box,.status-box,.done-confirm{margin-top:14px;padding:15px;border:1px solid #d7e0da;border-radius:16px;background:#f9fbf9}.quick-box>strong{display:block;margin-bottom:10px;color:#63736c;font-size:12px}.chips{padding-bottom:4px}.chip{min-height:39px;font-size:12px;background:#fff}.signature-box{display:flex;justify-content:space-between;gap:12px;font-size:11px}.signature-box span{text-align:right}.learning-note{margin:12px 2px;color:#64726c;font-size:10px;line-height:1.6}.status-box{display:flex;align-items:center;justify-content:space-between;gap:12px}.status-box label{font-size:12px}.status-box select{min-width:170px;height:44px;padding:0 13px;border:1px solid #cdd8d1;border-left:7px solid #39725e;border-radius:13px;background:#edf4f0;font-size:13px}.detail-actions{display:grid;grid-template-columns:94px 1fr;gap:10px;margin-top:20px}.detail-actions .button{min-height:50px}.done-confirm{display:flex;align-items:center;gap:13px;border-color:#a8d1bd;background:#edf8f1}.done-confirm .check{display:grid;place-items:center;width:39px;height:39px;border-radius:50%;color:#fff;background:#326452;font-size:22px}.done-confirm strong{display:block;color:#326452}.done-confirm small{font-size:10px}
+    .send-overlay{position:fixed;inset:0;z-index:60;display:none;place-items:center;padding:24px;background:rgba(24,41,35,.48);backdrop-filter:blur(2px)}.send-overlay.open{display:grid}.send-modal{position:relative;width:min(650px,100%);max-height:92vh;overflow:auto;padding:30px;border-radius:25px;background:#fff;box-shadow:0 26px 80px rgba(0,0,0,.22)}.send-modal .close{position:absolute;right:18px;top:16px}.send-modal .eyebrow{font-size:11px;font-weight:900;letter-spacing:.18em;color:#76877f}.send-modal h2{margin:14px 50px 4px 0;font-family:serif;font-size:27px;font-weight:500}.send-modal>p{margin:0 0 17px;color:var(--muted);font-size:12px}.gmail-preview{overflow:hidden;border:1px solid #cfd8d2;border-radius:17px}.gmail-head{display:flex;gap:12px;align-items:center;padding:13px;background:#f4f7fa;border-bottom:1px solid #dce2e6}.gmail-icon{display:grid;place-items:center;width:34px;height:34px;border-radius:10px;background:#fff;color:#d8453b;font-weight:900}.gmail-head strong{display:block;font-size:13px}.gmail-head small{font-size:10px}.gmail-meta{display:grid;grid-template-columns:54px 1fr;gap:8px;padding:16px 18px;border-bottom:1px solid #e2e6e3;font-size:11px}.gmail-meta b{color:#65736d}.gmail-body{min-height:190px;padding:20px;font-size:13px;white-space:pre-wrap;line-height:1.8}.send-warning{margin:14px 0;padding:15px;border:1px solid #efc26e;border-radius:15px;background:#fff4df;font-size:11px}.send-warning strong{display:block;margin-bottom:4px}.send-actions{display:grid;grid-template-columns:1fr 1fr 2fr;gap:9px}.send-actions .send-real{border:0;color:#fff;background:#e39a96}
+    .timeline-wrap{overflow-x:auto}.timeline-toolbar{display:flex;justify-content:space-between;align-items:end;gap:15px;margin-bottom:14px}.timeline-eyebrow{color:#526b62;font-size:11px;font-weight:900;letter-spacing:.16em}.timeline-title{font-family:serif;font-size:28px}.merge-button{min-height:42px;padding:0 15px;border:0;border-radius:12px;color:#fff;background:#8aa197;font-size:12px;font-weight:800}.timeline-board{min-width:1050px;overflow:hidden;border:1px solid #d5ded7;border-radius:22px;background:#fff;box-shadow:0 14px 34px rgba(32,57,48,.07)}.timeline-days{display:grid;grid-template-columns:250px repeat(10,1fr);min-height:64px;border-bottom:1px solid #dfe5e0}.timeline-days>*{padding:18px 12px;border-right:1px solid #e6ebe7;text-align:center;font-size:11px}.timeline-days strong{text-align:left}.timeline-days .current-day{background:#fff5df;color:#9b5b00}.case-row{position:relative;display:grid;grid-template-columns:250px 1fr;min-height:94px;border-bottom:1px solid #e6ebe7}.case-row:last-child{border-bottom:0}.case-info{z-index:2;padding:22px 16px;border-right:1px solid #e2e8e3;background:#fff;font-size:12px}.case-info strong{display:block;margin-bottom:7px}.case-info small{color:var(--muted)}.case-grid{position:relative;background:repeating-linear-gradient(to right,transparent 0,transparent calc(10% - 1px),#e6ebe7 calc(10% - 1px),#e6ebe7 10%)}.case-bar{position:absolute;top:24px;height:49px;padding:8px 16px;border-radius:13px;color:#fff;background:#326651;font-size:11px;font-weight:800}.case-bar.one{left:8%;width:26%}.case-bar.two{left:27%;width:26%}.case-deadline{position:absolute;top:0;bottom:0;left:52%;border-left:2px dashed #c94f45;color:#a9382f;font-size:9px}.timeline-legend{display:flex;gap:14px;flex-wrap:wrap;margin:0 0 13px;padding:10px 14px;border:1px solid #dce4de;border-radius:13px;background:#fff;font-size:10px}.timeline-legend span::before{content:"";display:inline-block;width:10px;height:10px;margin-right:5px;border-radius:3px;background:#326651}
+    @media(min-width:1120px){body.detail-open main{padding-right:470px}}
+    @media(max-width:860px){.app{display:block}.app>aside{display:block;position:static;width:100%;height:auto;padding:14px}.brand{margin-bottom:10px}nav{display:flex;overflow:auto}.tab{flex:0 0 auto;width:auto;height:45px;min-height:45px}.learn,.side-card{display:none}main{padding:24px 15px 92px}.actions{display:grid;grid-template-columns:1fr 1fr}.button{min-height:46px;padding:0 11px}.summary{grid-template-columns:1fr 1fr}.summary-card{min-height:124px;padding:16px}.task{grid-template-columns:1fr}.open-task{height:48px}.detail-panel{width:100%;padding:22px 18px}.send-actions{grid-template-columns:1fr}.send-modal{padding:22px 17px}.topbar{margin-bottom:23px}h1{font-size:36px}.sub{font-size:13px}.timeline-board{min-width:900px}}
+
+    /* 添付画像と同じ情報密度・文字寸法へ調整 */
+    .app{grid-template-columns:230px minmax(0,1fr)}aside{padding:27px 18px 18px}.mark{width:43px;height:43px;font-size:20px}.brand strong{font-size:18px}.brand small{font-size:9px}.tab{height:47px;min-height:47px;padding:0 13px;font-size:13px}.count{min-width:26px;font-size:11px}.learn strong,.side-card strong{font-size:12px}.learn p,.side-card,.side-card small{font-size:10px}
+    main{padding:35px clamp(30px,3.5vw,65px) 70px}.date{font-size:12px}h1{font-size:clamp(32px,2.7vw,42px)}.sub{margin-top:12px;font-size:13px}.actions{gap:9px}.button{min-height:43px;padding:0 15px;border-radius:14px;font-size:11px}
+    .summary{gap:11px;margin-bottom:29px}.summary-card{min-height:126px;padding:18px 20px;border-radius:21px}.summary-card span{font-size:11px}.summary-card strong{margin:11px 0 7px;font-size:30px}.list-head h2,.timeline-title{font-size:23px}.list-head p,.list-head>strong{font-size:11px}
+    .task{min-height:125px;grid-template-columns:1fr 105px;border-radius:21px}.task>div:nth-child(2){padding:18px 6px 16px 23px}.avatar{width:35px;height:35px;font-size:18px}.sender{font-size:12px}.badge{font-size:9px}.subject{margin:13px 0 6px;font-size:15px}.excerpt{font-size:11px}.task footer span{font-size:9px}.open-task{font-size:12px}
+    .detail-panel{width:min(390px,100vw);padding:25px 24px 20px}.detail-panel h2{font-size:22px}.detail-kicker,.person strong{font-size:11px}.incoming{font-size:11px}.section-label b{font-size:17px}.reply-area{min-height:175px;font-size:13px}.chip,.status-box select{font-size:11px}.signature-box,.learning-note,.status-help{font-size:9px}
+    .status-help{margin:9px 2px 0;padding:10px 12px;border-radius:11px;background:#f2f5f3;color:#53625c;line-height:1.55}.status-box select.state-unhandled{border-left-color:#77817c;background:#eef1ef}.status-box select.state-ai-wait{border-left-color:#7753a2;background:#f0e8f8}.status-box select.state-confirm{border-left-color:#c77b1d;background:#fff3da}.status-box select.state-working{border-left-color:#3972a5;background:#eaf3fb}.status-box select.state-hold{border-left-color:#9c7a22;background:#f8f1d8}.status-box select.state-no-reply,.status-box select.state-done{border-left-color:#39725e;background:#e7f3ec}.status-box select.state-send-unknown{border-left-color:#bd4f43;background:#ffe9e6}.status-box option[value="unhandled"]{background:#eef1ef}.status-box option[value="ai-wait"]{background:#f0e8f8}.status-box option[value="confirm"]{background:#fff3da}.status-box option[value="working"]{background:#eaf3fb}.status-box option[value="hold"]{background:#f8f1d8}.status-box option[value="no-reply"],.status-box option[value="done"]{background:#e7f3ec}.status-box option[value="send-unknown"]{background:#ffe9e6}
+    .done-button{margin-left:auto;min-width:92px;min-height:48px;border:0;border-radius:15px;color:#fff;background:#326452;font-size:22px;font-weight:900}.fireworks{position:fixed;inset:0;z-index:90;overflow:hidden;pointer-events:none}.spark{position:absolute;left:50%;top:48%;width:9px;height:9px;border-radius:50%;background:var(--spark,#e4a52d);animation:burst .95s ease-out forwards}@keyframes burst{to{transform:translate(var(--x),var(--y)) scale(.25);opacity:0}}
+    .connection-state{display:inline-flex;align-items:center;gap:6px;margin-top:8px;color:#466258;font-size:10px}.connection-state::before{content:"";width:8px;height:8px;border-radius:50%;background:#d19b34}.connection-state.live::before{background:#45a875}
+    .ai-question{display:none;margin:0 0 18px;padding:14px;border:1px solid #bea9d4;border-radius:16px;background:#f3edf9}.ai-question.show{display:block}.ai-question strong{display:block;margin-bottom:9px;font-size:12px}.ai-question div{display:flex;gap:7px;flex-wrap:wrap}.ai-question button{min-height:37px;padding:0 11px;border:1px solid #9d82b8;border-radius:11px;background:#fff;color:#593d75;font-size:10px;font-weight:800}
+    .case-bar{touch-action:none}.bar-resize{position:absolute;right:-10px;top:2px;width:28px;height:45px;border:0;border-radius:10px;background:#ffffff8f;cursor:ew-resize}.timeline-actions{display:flex;gap:7px;flex-wrap:wrap}.delete-timeline{background:#fff;color:#9c3e38;border:1px solid #e3b9b5}.restore-timeline{background:#fff;color:#315b4b;border:1px solid #aac5b9}.case-select{margin-right:8px;accent-color:#326452}
+    @media(min-width:1120px){body.detail-open main{padding-right:430px}}
+    @media(max-width:860px){body{background:#eef3ed}.app{display:block}.app>aside{display:block;position:static;height:auto;padding:13px 14px 0;border:0}.brand{margin:0}.app>aside nav{position:fixed;z-index:45;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:#fbfcfaf5;border-top:1px solid #d7e0da;box-shadow:0 -8px 24px #173f3510}.tab{width:100%;height:46px;min-height:46px;padding:0 7px;font-size:10px}.count{min-width:21px;padding:2px 5px;font-size:9px}main{padding:20px 12px calc(122px + env(safe-area-inset-bottom))}.topbar{display:block}.date{font-size:11px}h1{margin-top:9px;font-size:31px}.sub{font-size:11px}.actions{grid-template-columns:1fr 1fr;margin-top:16px}.actions .button{min-width:0;font-size:10px}.summary{gap:8px;margin-top:18px}.summary-card{min-height:105px;padding:13px 14px;border-radius:17px}.summary-card span{font-size:10px}.summary-card strong{margin:8px 0 5px;font-size:27px}.list-head h2{font-size:21px}.task{min-height:0;border-radius:18px}.task>div:nth-child(2){padding:15px 14px 13px 19px}.subject{font-size:15px}.excerpt{white-space:normal}.detail-panel{z-index:55;width:100%;padding:22px 16px calc(20px + env(safe-area-inset-bottom))}.detail-panel h2{font-size:22px}.reply-area{min-height:210px;font-size:16px}.status-box{display:block}.status-box select{width:100%;margin-top:8px}.send-overlay{padding:8px}.send-modal{border-radius:20px}.send-modal h2{font-size:22px}.gmail-body{min-height:150px}.timeline-toolbar{display:block}.timeline-actions{margin-top:10px}.timeline-board{min-width:760px}.bar-resize{right:-12px;width:34px}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.fireworks{display:none!important}}
   </style>
 </head>
 <body>
@@ -126,28 +196,30 @@
         <button class="tab" data-tab="quick">すぐ返せる <span class="count">0</span></button>
         <button class="tab" data-tab="working">対応中 <span class="count">0</span></button>
         <button class="tab" data-tab="question">AIが迷い中 <span class="count">0</span></button>
+        <button class="tab" data-tab="timeline">案件進捗 <span class="count">0</span></button>
         <button class="tab" data-tab="done">完了 <span class="count">0</span></button>
       </nav>
-      <div class="side-card"><strong><span class="online"></span>5分ごとに確認</strong>Apps Scriptがクラウドで動きます。自動送信はしません。</div>
+      <div class="learn"><strong>あなたの文体を学習</strong><div><i style="width:28%"></i></div><p>送信済みメールと、AI案を書き直して実際に送った文面から学習します。</p><button class="button" id="learnStyle" style="width:100%;min-height:35px;margin-top:10px">過去メールから学習</button></div>
+      <div class="side-card"><strong><span class="online"></span>Gmail接続</strong><small>Apps Scriptが5分ごとに新着確認</small><p>アプリで確定した時だけGmailから送信</p><span class="connection-state" id="connectionState">接続確認中</span></div>
     </aside>
 
     <main>
       <div class="topbar">
-        <div><p class="date" id="today"></p><h1>おはようございます</h1><p class="sub">重要度・期限・返信の簡単さで整理します</p></div>
+        <div><p class="date" id="today"></p><h1>おはようございます</h1><p class="sub">24時間以内の新着 <strong id="new24Count">0件</strong>・前日までの未完了 <strong id="carryCount">0件</strong></p></div>
         <div class="actions">
-          <button class="button soft" id="openGuide">説明・譲渡方法</button>
-          <button class="button" id="openApiGuide">APIを設定する</button>
-          <a class="button primary" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Gmail下書き</a>
+          <button class="button" id="backupButton">バックアップ保存</button>
+          <button class="button" id="restoreButton">復元</button>
+          <a class="button" href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Gmail下書きを開く</a>
+          <button class="button" id="openAiGuide">AIと安全性</button>
+          <button class="button" id="openSettings">署名・通知設定</button>
         </div>
       </div>
 
-      <div class="demo-note"><strong>公開用の見本画面</strong><span>下のメールは見本です。実際のメール本文やAPIキーはGitHubへ保存しません。</span></div>
-
       <div class="summary">
         <div class="summary-card urgent"><span>最優先</span><strong id="urgentCount">0</strong>期限が近い</div>
-        <div class="summary-card today"><span>今日の対応</span><strong id="todayCount">0</strong>今日中に確認</div>
-        <div class="summary-card quick"><span>30秒返信</span><strong id="quickCount">0</strong>すぐ返せる</div>
-        <div class="summary-card question"><span>質問が必要</span><strong id="questionCount">0</strong>AIが迷い中</div>
+        <div class="summary-card today"><span>今日の対応</span><strong id="todayCount">0</strong>優先順に整理済み</div>
+        <div class="summary-card quick"><span>30秒返信</span><strong id="quickCount">0</strong>別タブにも重複表示</div>
+        <div class="summary-card question"><span>質問が必要</span><strong id="questionCount">0</strong>回答から学習</div>
       </div>
 
       <div class="list-head"><div><h2 id="listTitle">今日の優先</h2><p id="listDescription">重要度と期限の高い順です</p></div><strong id="visibleCount">0件</strong></div>
@@ -155,14 +227,28 @@
     </main>
   </div>
 
-  <div class="overlay" id="editorOverlay" aria-hidden="true">
-    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="editorTitle">
-      <div class="modal-head"><div><small id="editorSender">MAIL</small><h2 id="editorTitle">メールを確認</h2></div><button class="close" data-close="editorOverlay" aria-label="閉じる">×</button></div>
-      <div class="modal-body">
-        <div class="field"><label for="statusSelect">対応状態</label><select id="statusSelect"><option value="working">対応中</option><option value="hold">保留</option><option value="no-reply">返信不要（送信せず完了）</option><option value="done">完了</option></select></div>
-        <div class="field"><label for="replyText">AIの仮返信</label><div class="chips" id="chips"><button class="chip" data-text="ありがとうございます。">ありがとうございます</button><button class="chip" data-text="お忙しい中、ご対応いただきありがとうございました。">お忙しい中ありがとうございました</button><button class="chip" data-text="承知いたしました。">承知しました</button><button class="chip" data-text="引き続きよろしくお願いいたします。">引き続きよろしくお願いします</button></div><textarea id="replyText"></textarea><div class="keigo" id="keigoBox">「おけ」を敬語にしますか？<button id="applyKeigo">承知いたしました。</button></div></div>
-        <div class="modal-actions"><button class="button" data-close="editorOverlay">戻る</button><button class="button primary" id="saveTask">見本を保存</button></div>
-      </div>
+  <aside class="detail-panel" id="detailPanel" aria-hidden="true" aria-labelledby="editorTitle">
+    <button class="detail-close" id="closeDetail" aria-label="閉じる">×</button>
+    <div class="detail-kicker"><span class="priority-pill" id="detailPriority">優先</span><span class="certainty">AI確信度 <b id="certaintyValue">82%</b></span></div>
+    <h2 id="editorTitle">来月の制作スケジュールについて</h2>
+    <div class="person"><b class="avatar" id="detailAvatar">佐</b><div><strong id="editorSender">佐藤さん</strong><small id="detailEmail">sato@example.com</small></div></div>
+    <div class="incoming" id="detailIncoming">次回制作分について、納期と費用感をご相談できればと思います。</div>
+    <div class="ai-question" id="aiQuestion"><strong>AIが迷っています。このメールは返信が必要ですか？</strong><div><button data-answer="reply">返信が必要</button><button data-answer="no-reply">返信不要</button><button data-answer="hold">今は保留</button></div></div>
+    <div class="section-label"><div><small>AI REPLY DRAFT</small> <b>返信下書き</b></div><span class="ai-chip">文面AI − 最終確認AI</span></div>
+    <textarea class="reply-area" id="replyText"></textarea>
+    <div class="quick-box"><strong>よく使う言葉・ワンタップ入力</strong><div class="chips" id="chips"><button class="chip" data-text="ありがとうございます。">ありがとうございます。</button><button class="chip" data-text="お忙しい中、ご対応いただきありがとうございました。">お忙しい中、ありがとうございました。</button><button class="chip" data-text="承知いたしました。">承知いたしました。</button></div><div class="keigo" id="keigoBox">「おけ」を敬語にしますか？<button id="applyKeigo">承知いたしました。</button></div></div>
+    <div class="signature-box"><small>承認時に自動追加</small><span>本人専用版では<br>設定した署名を表示</span></div>
+    <p class="learning-note">過去の返信文の書き直しを学習し、書き直しは実際に送信した後に反映します。</p>
+    <div class="status-box"><label for="statusSelect">現在の状態</label><select id="statusSelect" class="state-confirm"><option value="unhandled">未対応</option><option value="ai-wait">AI判断待ち</option><option value="confirm">確認待ち</option><option value="working">対応中</option><option value="hold">保留</option><option value="no-reply">返信不要・完了</option><option value="done">送信済み・完了</option><option value="send-unknown">送信結果を確認</option></select></div><p class="status-help" id="statusHelp">確認待ち：AI返信案を本人が確認する段階です。まだ送信されません。</p>
+    <div id="detailFooter"><div class="detail-actions"><button class="button" id="holdTask">保留</button><button class="button primary" id="previewSend">承認する</button></div><p class="learning-note">承認すると署名付きGmail下書きを作り、最終確認画面を開きます。まだ送信はされません。</p></div>
+  </aside>
+
+  <div class="send-overlay" id="sendOverlay" aria-hidden="true">
+    <section class="send-modal" role="dialog" aria-modal="true" aria-labelledby="sendTitle">
+      <button class="close" id="closeSend" aria-label="閉じる">×</button><div class="eyebrow">FINAL SEND CHECK</div><h2 id="sendTitle">本当にいいですか？この内容で送信しますか？</h2><p>Gmailで相手に届く内容です。宛先・件名・署名まで確認してください。</p>
+      <div class="gmail-preview"><div class="gmail-head"><span class="gmail-icon">M</span><div><strong>新規メッセージ</strong><small id="previewMode">Gmail下書きの実データ</small></div></div><div class="gmail-meta"><b>差出人</b><strong>example@example.com</strong><b>宛先</b><strong id="previewTo">sato@example.com</strong><b>件名</b><strong id="previewSubject">Re: 来月の制作スケジュールについて</strong></div><div class="gmail-body" id="previewBody"></div></div>
+      <div class="send-warning" id="sendWarning"><strong>このボタンでGmailから送信します</strong>送信後はGmailの「送信済み」に残ります。内容を直す場合は「編集に戻る」、今は送らない場合は「保留」を選んでください。<br><a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Gmail下書きを別画面で確認</a></div>
+      <div class="send-actions"><button class="button" id="backToEdit">編集に戻る</button><button class="button" id="previewHold">保留</button><button class="button send-real" id="demoSend">この内容でGmailから送信</button></div>
     </section>
   </div>
 
@@ -170,531 +256,96 @@
     <section class="modal wide" role="dialog" aria-modal="true" aria-labelledby="guideTitle">
       <div class="modal-head"><div><small>GUIDE & TRANSFER</small><h2 id="guideTitle">説明・譲渡方法</h2></div><button class="close" data-close="guideOverlay" aria-label="閉じる">×</button></div>
       <div class="modal-body">
-        <div class="guide-section"><h3>1．このアプリの動き</h3><div class="flow"><div>Gmail受信</div><div>Apps Script</div><div>Gemini API</div><div>Gmail下書き</div></div><p>GitHubの画面を閉じても、Apps Scriptが5分ごとに確認します。最後の送信はGmailで本人が行います。</p></div>
+        <div class="guide-section"><h3>1．このアプリの動き</h3><div class="flow"><div>Gmail受信</div><div>3役AIで下書き</div><div>本人が承認</div><div>最終確認して送信</div></div><p>「承認」はGoogleの接続許可ではなく、AI返信案の内容を本人が了承する操作です。承認すると名前・電話番号・メールを付けたGmail下書きを作ります。次の画面で宛先・件名・本文・CC・BCC・添付を確認し、「送信」を押した時だけGmailから送信します。</p><div class="info">GitHub Pages版は公開用の画面見本です。実Gmailへ接続してアプリから送信する本体は、同じHTMLを本人専用のApps Script Webアプリとして開きます。</div></div>
 
-        <div class="guide-section" id="apiGuide"><h3>2．Gemini APIを別に設定する</h3><div class="warning"><strong>APIキーはこのHTMLへ入力しません。</strong>GitHub Pagesは公開ページなので、書くと他人に盗まれる危険があります。</div><p>譲渡先の人が自分のGoogleアカウントで<a href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener">Gemini APIキー</a>を作り、自分のApps Scriptの「スクリプト プロパティ」へ保存します。</p><table><tbody><tr><th>GEMINI_API_KEY</th><td>譲渡先本人のAPIキー</td></tr><tr><th>DISPLAY_NAME</th><td>譲渡先本人の名前</td></tr><tr><th>PHONE</th><td>譲渡先本人の電話番号</td></tr><tr><th>REPLY_EMAIL</th><td>譲渡先本人のGmail</td></tr></tbody></table><div class="safe">普段使う有料GeminiとGemini APIは別の利用枠です。AI Studioで請求設定をしていなければ、API無料枠を使います。</div></div>
+        <div class="guide-section" id="apiGuide"><h3>2．Gmail接続とGemini API</h3><div class="warning"><strong>APIキーはこのHTMLへ入力しません。</strong>GitHub Pagesは公開ページなので、書くと他人に盗まれる危険があります。</div><p>GmailはApps Scriptの初回実行時にGoogleの権限確認を一度行います。OAuth Client ID・Client Secret・リダイレクトURIは不要です。譲渡先の人は自分のGoogleアカウントで<a href="https://aistudio.google.com/api-keys" target="_blank" rel="noopener">Gemini APIキー</a>を作り、自分のApps Scriptの「スクリプト プロパティ」へ保存します。</p><table><tbody><tr><th>GEMINI_API_KEY</th><td>譲渡先本人のAPIキー</td></tr><tr><th>DISPLAY_NAME</th><td>譲渡先本人の名前</td></tr><tr><th>PHONE</th><td>譲渡先本人の電話番号</td></tr><tr><th>REPLY_EMAIL</th><td>譲渡先本人のGmail</td></tr></tbody></table><div class="safe">普段使う有料GeminiとGemini APIは別の利用枠です。AI Studioで請求設定をしていなければ、API無料枠を使います。</div></div>
 
-        <div class="guide-section"><h3>3．相手へ譲渡する手順</h3><ol class="steps"><li><strong>このHTMLを渡す</strong><br>GitHubへ<code>index.html</code>として公開するか、HTMLファイルを相手へ渡します。</li><li><strong>相手が自分のAPIキーを作る</strong><br>菜々子さんのAPIキーは渡しません。</li><li><strong>相手が新しいApps Scriptを作る</strong><br><a href="https://script.google.com/home" target="_blank" rel="noopener">Apps Script</a>で新しいプロジェクトを作ります。菜々子さんのプロジェクトを共同利用しません。</li><li><strong>Code.gsを貼る</strong><br>下の「Code.gsをコピー」から全部貼り付けます。</li><li><strong>4つのプロパティを設定する</strong><br>APIキー・名前・電話番号・Gmailを相手自身の内容で入力します。</li><li><strong>setupSecretaryを実行する</strong><br>相手自身のGoogleアカウントで権限を確認し、許可します。</li><li><strong>Gmail下書きとバックアップを確認する</strong><br>自動送信されず、下書きだけ作られることを確認します。</li></ol></div>
+        <div class="guide-section"><h3>3．相手へ譲渡する手順</h3><ol class="steps"><li><strong>index.htmlとCode.gsを渡す</strong><br>公開見本はGitHubへ<code>index.html</code>として置けます。</li><li><strong>相手が自分のAPIキーを作る</strong><br>元の所有者のAPIキーは渡しません。</li><li><strong>相手が新しいApps Scriptを作る</strong><br><a href="https://script.google.com/home" target="_blank" rel="noopener">Apps Script</a>で新規作成し、Code.gsと「index」というHTMLファイルを追加します。</li><li><strong>4つのプロパティを設定する</strong><br>APIキー・名前・電話番号・Gmailを相手自身の内容で入力します。</li><li><strong>setupSecretaryを実行する</strong><br>相手自身のGoogleアカウントでGmail・Drive・Sheetsの権限を許可します。</li><li><strong>本人専用Webアプリとしてデプロイ</strong><br>「自分として実行」「アクセスできるユーザーは自分」にします。</li><li><strong>下書きと送信履歴を確認</strong><br>承認では下書きだけ、最終送信後にGmail送信済みへ残ることをテストします。</li></ol></div>
 
-        <div class="guide-section"><h3>4．容量の見方</h3><p><a href="https://aistudio.google.com/usage" target="_blank" rel="noopener">AI Studioの使用量</a>と<a href="https://aistudio.google.com/rate-limit?timeRange=last-28-days" target="_blank" rel="noopener">上限画面</a>で「Gemini 2.5 Flash」を確認します。通常、下書き1通で約1リクエストです。コード側は最大3通／5分なので、理論上は最大864通／日です。</p></div>
+        <div class="guide-section"><h3>4．容量の見方</h3><p><a href="https://aistudio.google.com/usage" target="_blank" rel="noopener">AI Studioの使用量</a>と<a href="https://aistudio.google.com/rate-limit?timeRange=last-28-days" target="_blank" rel="noopener">上限画面</a>で「Gemini 2.5 Flash」を確認します。分析・起草・校正の3役を分けるため、下書き1通で通常3リクエスト使います。混雑時は安全に止まり、5分後に再試行します。</p></div>
 
-        <div class="guide-section"><h3>5．安全チェック</h3><ul><li>APIキーをHTML・GitHub・チャットへ書かない</li><li>相手ごとに別のApps ScriptとAPIキーを使う</li><li>実メールをGitHubへ保存しない</li><li>無料Gemini APIで機密メールを扱う場合はGoogleのデータ利用条件を確認する</li></ul><div class="info">HTMLの更新では、Gmail・Apps Script・Google Driveのバックアップは消えません。実データはHTMLとは別の場所にあります。</div></div>
+        <div class="guide-section" id="securityGuide"><h3>5．安全チェック</h3><ul><li>APIキーをHTML・GitHub・チャットへ書かない</li><li>相手ごとに別のApps ScriptとAPIキーを使う</li><li>実メールをGitHubへ保存しない</li><li>無料Gemini APIで機密メールを扱う場合はGoogleのデータ利用条件を確認する</li></ul><div class="info">HTMLの更新では、Gmail・Apps Script・Google Driveのバックアップは消えません。実データはHTMLとは別の場所にあります。</div></div>
 
-        <div class="guide-section"><h3>6．譲渡用Code.gs</h3><p>秘密情報は含まれていません。APIキーは相手自身が別途設定します。</p><button class="button primary" id="copyCode">Code.gsをコピー</button> <span id="copyStatus" role="status"></span><details><summary>コードを表示</summary><div class="details-body"><pre><code id="codeGs">/**
- * 朝9時メール秘書：5分ごとにGmailを確認し、返信下書きだけを作ります。
- * 自動送信・削除・既読化はしません。
- */
-
-const SECRETARY = {
-  processedLabel: 'メール秘書/下書き作成済み',
-  reviewLabel: 'メール秘書/要確認',
-  excludedLabel: 'メール秘書/対象外',
-  automaticLabel: 'メール秘書/自動通知',
-  // 503が続いたため、Googleが安定版として案内しているモデルを既定にします。
-  model: 'gemini-2.5-flash',
-  maxThreads: 10,
-  maxDraftsPerRun: 3,
-  maxAiAttempts: 3,
-  backupFolderName: '朝9時メール秘書バックアップ',
-  backupColumns: 9
-};
-
-function setupSecretary() {
-  getSettings_();
-  getLabel_(SECRETARY.processedLabel);
-  getLabel_(SECRETARY.reviewLabel);
-  getLabel_(SECRETARY.excludedLabel);
-  getLabel_(SECRETARY.automaticLabel);
-  deleteSecretaryTriggers_();
-  ScriptApp.newTrigger('runSecretary')
-    .timeBased()
-    .everyMinutes(5)
-    .create();
-  runSecretary();
-  console.log('設定完了：5分ごとの自動確認を開始しました。自動送信はしません。');
-}
-
-function runSecretary() {
-  const lock = LockService.getScriptLock();
-  if (!lock.tryLock(1000)) {
-    console.log('前の処理が実行中のため、今回は何もしません。');
-    return;
-  }
-
-  try {
-    cleanupProcessedMarkers_();
-
-    const settings = getSettings_();
-    const processedLabel = getLabel_(SECRETARY.processedLabel);
-    const reviewLabel = getLabel_(SECRETARY.reviewLabel);
-    const automaticLabel = getLabel_(SECRETARY.automaticLabel);
-    const query = [
-      'in:inbox',
-      'newer_than:2d',
-      '-label:"' + SECRETARY.excludedLabel + '"'
-    ].join(' ');
-
-    const threads = GmailApp.search(query, 0, SECRETARY.maxThreads);
-    let created = 0;
-    let skipped = 0;
-    let failed = 0;
-
-    for (let index = 0; index &lt; threads.length; index += 1) {
-      if (created &gt;= SECRETARY.maxDraftsPerRun) break;
-
-      const thread = threads[index];
-      const messages = thread.getMessages();
-      if (!messages.length) continue;
-
-      const latest = messages[messages.length - 1];
-      const messageId = latest.getId();
-      if (wasProcessed_(messageId)) continue;
-
-      const skipReason = getSkipReason_(latest, settings);
-      if (skipReason) {
-        markProcessed_(messageId);
-        thread.addLabel(automaticLabel);
-        if (!tryBackupEvent_(settings, latest, '対象外', skipReason, '')) {
-          thread.addLabel(reviewLabel);
-        }
-        skipped += 1;
-        console.log('対象外（' + skipReason + '）：' + latest.getSubject());
-        continue;
-      }
-
-      try {
-        const receivedBody = cleanBody_(latest.getPlainBody());
-        if (!receivedBody) throw new Error('本文を読み取れませんでした');
-
-        const reply = createReply_(latest, receivedBody, settings);
-        const draftText = addSignature_(reply, settings);
-        latest.createDraftReply(draftText);
-        markProcessed_(messageId);
-        thread.addLabel(processedLabel);
-        thread.removeLabel(reviewLabel);
-        if (!tryBackupEvent_(settings, latest, '下書き作成', '', draftText)) {
-          thread.addLabel(reviewLabel);
-        }
-        created += 1;
-        console.log('下書き作成：' + latest.getSubject());
-      } catch (error) {
-        failed += 1;
-        thread.addLabel(reviewLabel);
-        tryBackupEvent_(settings, latest, 'エラー', String(error), '');
-        console.error('下書き作成失敗：' + latest.getSubject() + ' / ' + String(error));
-
-        // AI全体が一時停止中なら、他のメールでも連続失敗させず次回へ回します。
-        if (error &amp;&amp; error.aiTemporary === true) {
-          console.log('AIが一時的に混雑しています。残りは5分後に再試行します。');
-          break;
-        }
-      }
-    }
-
-    console.log(
-      '今回の結果：下書き' + created + '件、対象外' + skipped + '件、失敗' + failed + '件'
-    );
-  } finally {
-    lock.releaseLock();
-  }
-}
-
-function createReply_(message, receivedBody, settings) {
-  const prompt = [
-    'あなたは日本語のメール秘書です。受信メールへの返信下書きだけを作ってください。',
-    'ルール：',
-    '・丁寧で自然な敬語にする',
-    '・メールに書かれていない日時、金額、約束、事実を作らない',
-    '・判断できない場合は、受領したことと確認後に連絡することだけを書く',
-    '・件名、宛先、署名、分析、説明文は出さない',
-    '・200〜500文字程度にする',
-    '',
-    '差出人：' + hideEmail_(message.getFrom()),
-    '件名：' + message.getSubject(),
-    '本文：',
-    receivedBody.slice(0, 6000)
-  ].join('\n');
-
-  const url = 'https://generativelanguage.googleapis.com/v1beta/models/'
-    + encodeURIComponent(settings.model)
-    + ':generateContent';
-
-  const data = fetchAiWithRetry_(url, settings.apiKey, {
-    contents: [{role: 'user', parts: [{text: prompt}]}],
-    generationConfig: {temperature: 0.25, maxOutputTokens: 1000}
-  });
-
-  const parts = (((data.candidates || [])[0] || {}).content || {}).parts || [];
-  const reply = parts.map(function(part) { return part.text || ''; }).join('').trim();
-  if (!reply) throw new Error('AIの返信案が空でした');
-  return reply.slice(0, 8000);
-}
-
-function fetchAiWithRetry_(url, apiKey, payload) {
-  const waits = [0, 1500, 4000];
-  let lastStatus = 0;
-  let lastMessage = '';
-
-  for (let attempt = 0; attempt &lt; SECRETARY.maxAiAttempts; attempt += 1) {
-    if (waits[attempt]) Utilities.sleep(waits[attempt]);
-
-    try {
-      const response = UrlFetchApp.fetch(url, {
-        method: 'post',
-        contentType: 'application/json',
-        headers: {'x-goog-api-key': apiKey},
-        muteHttpExceptions: true,
-        payload: JSON.stringify(payload)
-      });
-
-      lastStatus = response.getResponseCode();
-      const data = safeJsonParse_(response.getContentText());
-      if (lastStatus &gt;= 200 &amp;&amp; lastStatus &lt; 300) return data;
-
-      lastMessage = cleanAiErrorMessage_(data);
-      if (!isRetryableStatus_(lastStatus)) {
-        throw createAiError_(lastStatus, lastMessage, false);
-      }
-    } catch (error) {
-      if (error &amp;&amp; error.aiError === true &amp;&amp; error.aiTemporary !== true) throw error;
-      lastMessage = lastMessage || String(error);
-      lastStatus = lastStatus || 503;
-    }
-  }
-
-  throw createAiError_(lastStatus || 503, lastMessage, true);
-}
-
-function createAiError_(status, message, temporary) {
-  const suffix = message ? '（' + String(message).slice(0, 160) + '）' : '';
-  const error = new Error('AI接続エラー：' + status + suffix);
-  error.aiError = true;
-  error.aiTemporary = temporary === true;
-  return error;
-}
-
-function isRetryableStatus_(status) {
-  return status === 429 || status === 500 || status === 502 || status === 503 || status === 504;
-}
-
-function safeJsonParse_(text) {
-  try {
-    return JSON.parse(String(text || '{}'));
-  } catch (error) {
-    return {};
-  }
-}
-
-function cleanAiErrorMessage_(data) {
-  const message = data &amp;&amp; data.error &amp;&amp; data.error.message ? data.error.message : '';
-  return String(message).replace(/[\r\n]+/g, ' ').trim();
-}
-
-function getSettings_() {
-  const p = PropertiesService.getScriptProperties();
-  const settings = {
-    apiKey: p.getProperty('GEMINI_API_KEY') || '',
-    name: p.getProperty('DISPLAY_NAME') || '',
-    phone: p.getProperty('PHONE') || '',
-    email: p.getProperty('REPLY_EMAIL') || Session.getEffectiveUser().getEmail() || '',
-    model: p.getProperty('GEMINI_MODEL') || SECRETARY.model,
-    backupEnabled: p.getProperty('BACKUP_ENABLED') !== 'false'
-  };
-
-  const missing = [];
-  if (!settings.apiKey) missing.push('GEMINI_API_KEY');
-  if (!settings.name) missing.push('DISPLAY_NAME');
-  if (!settings.phone) missing.push('PHONE');
-  if (missing.length) throw new Error('未設定：' + missing.join(', '));
-  return settings;
-}
-
-function pauseSecretary() {
-  deleteSecretaryTriggers_();
-  console.log('自動確認を停止しました。下書きは削除しません。');
-}
-
-function resumeSecretary() {
-  getSettings_();
-  deleteSecretaryTriggers_();
-  ScriptApp.newTrigger('runSecretary').timeBased().everyMinutes(5).create();
-  console.log('5分ごとの自動確認を再開しました。自動送信はしません。');
-}
-
-function deleteSecretaryTriggers_() {
-  ScriptApp.getProjectTriggers().forEach(function(trigger) {
-    if (trigger.getHandlerFunction() === 'runSecretary') {
-      ScriptApp.deleteTrigger(trigger);
-    }
-  });
-}
-
-function getLabel_(name) {
-  return GmailApp.getUserLabelByName(name) || GmailApp.createLabel(name);
-}
-
-function wasProcessed_(messageId) {
-  return Boolean(PropertiesService.getScriptProperties().getProperty('DONE_' + messageId));
-}
-
-function markProcessed_(messageId) {
-  PropertiesService.getScriptProperties().setProperty('DONE_' + messageId, String(Date.now()));
-}
-
-function cleanupProcessedMarkers_() {
-  const properties = PropertiesService.getScriptProperties();
-  const lastCleanup = Number(properties.getProperty('LAST_DONE_CLEANUP') || 0);
-  const now = Date.now();
-  if (now - lastCleanup &lt; 24 * 60 * 60 * 1000) return;
-
-  const all = properties.getProperties();
-  const cutoff = now - 30 * 24 * 60 * 60 * 1000;
-  const legacy = {};
-
-  Object.keys(all).forEach(function(key) {
-    if (key.indexOf('DONE_') !== 0) return;
-
-    if (all[key] === '1') {
-      // 旧版の記録は消さず、現在時刻へ変換して重複下書きを防ぎます。
-      legacy[key] = String(now);
-      return;
-    }
-
-    const savedAt = Number(all[key]);
-    if (savedAt &amp;&amp; savedAt &lt; cutoff) properties.deleteProperty(key);
-  });
-
-  if (Object.keys(legacy).length) properties.setProperties(legacy, false);
-  properties.setProperty('LAST_DONE_CLEANUP', String(now));
-}
-
-function getSkipReason_(message, settings) {
-  if (message.isDraft()) return '下書き';
-  if (isMyMessage_(message, settings.email)) return '自分から送ったメール';
-
-  const sender = [message.getFrom(), message.getReplyTo()].join(' ');
-  if (/(?:no[._-]?reply|do[._-]?not[._-]?reply|mailer-daemon|postmaster|bounce|notifications?)[@&gt;\s]/i.test(sender)) {
-    return '自動送信アドレス';
-  }
-
-  const autoSubmitted = String(message.getHeader('Auto-Submitted') || '').trim();
-  if (autoSubmitted &amp;&amp; !/^no$/i.test(autoSubmitted)) return '自動送信ヘッダー';
-
-  const precedence = String(message.getHeader('Precedence') || '').trim();
-  if (/^(?:bulk|list|junk)$/i.test(precedence)) return '一斉配信';
-  if (String(message.getHeader('List-Id') || '').trim()) return 'メーリングリスト';
-  if (String(message.getHeader('X-Auto-Response-Suppress') || '').trim()) return '自動通知ヘッダー';
-
-  const subject = String(message.getSubject() || '');
-  const automaticSubject = /(?:発送(?:についてのご案内|のお知らせ|中です|完了)|出荷(?:のお知らせ|完了)|配送(?:のお知らせ|状況|完了)|ご注文.*(?:受け付けました|受付|確認|完了)|注文(?:受付|確認|完了)|カード(?:利用|ご利用|ご請求)|ご請求金額|定期購入が更新|お支払い(?:完了|確認)|決済完了|領収書|認証コード|ログインコード|ワンタイムパスワード|本人確認コード|メールアドレス確認|登録完了|予約完了|shipping (?:notice|confirmation|update)|order (?:received|confirmation|shipped)|payment (?:received|confirmation)|receipt|invoice|verification code|one[- ]time passcode)/i;
-  if (automaticSubject.test(subject)) return '通知メールの件名';
-
-  return '';
-}
-
-function isMyMessage_(message, email) {
-  return email &amp;&amp; String(message.getFrom()).toLowerCase().indexOf(String(email).toLowerCase()) &gt;= 0;
-}
-
-function cleanBody_(body) {
-  return String(body || '')
-    .replace(/\r\n/g, '\n')
-    .split(/\n(?:On .+ wrote:|20\d{2}年.+(?:書きました|送信):)/i)[0]
-    .replace(/\n{4,}/g, '\n\n')
-    .trim();
-}
-
-function addSignature_(reply, settings) {
-  const signature = [settings.name, 'TEL ' + settings.phone, settings.email]
-    .filter(Boolean)
-    .join('\n');
-  return String(reply).trim() + '\n\n' + signature;
-}
-
-function hideEmail_(value) {
-  return String(value || '').replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[メールアドレス]');
-}
-
-/**
- * バックアップは月ごとのGoogleスプレッドシートに記録します。
- * 元メールはGmailに残し、ここには処理履歴と作成した下書きを保存します。
- */
-function tryBackupEvent_(settings, message, status, detail, draftText) {
-  if (!settings.backupEnabled) return true;
-
-  try {
-    appendBackupEvent_(message, status, detail, draftText);
-    return true;
-  } catch (error) {
-    console.error('バックアップ失敗：' + String(error));
-    return false;
-  }
-}
-
-function appendBackupEvent_(message, status, detail, draftText) {
-  const spreadsheet = getMonthlyBackupSpreadsheet_(new Date());
-  const sheet = spreadsheet.getSheets()[0];
-  sheet.appendRow([
-    new Date(),
-    message.getDate(),
-    status,
-    String(detail || '').slice(0, 500),
-    String(message.getSubject() || '').slice(0, 1000),
-    String(message.getFrom() || '').slice(0, 1000),
-    message.getThread().getId(),
-    message.getId(),
-    String(draftText || '').slice(0, 8000)
-  ]);
-}
-
-function getMonthlyBackupSpreadsheet_(date) {
-  const properties = PropertiesService.getScriptProperties();
-  const yearMonth = Utilities.formatDate(date, 'Asia/Tokyo', 'yyyy-MM');
-  const propertyName = 'BACKUP_SHEET_' + yearMonth.replace('-', '_');
-  const existingId = properties.getProperty(propertyName);
-
-  if (existingId) {
-    try {
-      return SpreadsheetApp.openById(existingId);
-    } catch (error) {
-      // 削除・移動されていた場合は、新しい月別バックアップを作ります。
-      properties.deleteProperty(propertyName);
-    }
-  }
-
-  const spreadsheet = SpreadsheetApp.create('メール秘書バックアップ ' + yearMonth);
-  const sheet = spreadsheet.getSheets()[0];
-  sheet.setName('記録');
-  sheet.getRange(1, 1, 1, SECRETARY.backupColumns).setValues([[
-    '処理日時', '受信日時', '状態', '詳細', '件名', '差出人',
-    'スレッドID', 'メッセージID', '作成した下書き'
-  ]]);
-  sheet.setFrozenRows(1);
-
-  const folder = getOrCreateBackupFolder_();
-  DriveApp.getFileById(spreadsheet.getId()).moveTo(folder);
-  properties.setProperty(propertyName, spreadsheet.getId());
-  return spreadsheet;
-}
-
-function getOrCreateBackupFolder_() {
-  const properties = PropertiesService.getScriptProperties();
-  const existingId = properties.getProperty('BACKUP_FOLDER_ID');
-
-  if (existingId) {
-    try {
-      return DriveApp.getFolderById(existingId);
-    } catch (error) {
-      properties.deleteProperty('BACKUP_FOLDER_ID');
-    }
-  }
-
-  const folder = DriveApp.createFolder(SECRETARY.backupFolderName);
-  properties.setProperty('BACKUP_FOLDER_ID', folder.getId());
-  return folder;
-}
-
-function stopBackup() {
-  PropertiesService.getScriptProperties().setProperty('BACKUP_ENABLED', 'false');
-  console.log('自動バックアップを停止しました。既存のバックアップは削除しません。');
-}
-
-function startBackup() {
-  PropertiesService.getScriptProperties().setProperty('BACKUP_ENABLED', 'true');
-  console.log('自動バックアップを開始しました。次のメール処理からGoogle Driveへ記録します。');
-}
-
-/**
- * 初回確認用です。空の今月分バックアップ表だけをGoogle Driveへ作ります。
- * メールの送信・下書き作成・偽データの追加はしません。
- */
-function prepareBackup() {
-  const settings = getSettings_();
-  if (!settings.backupEnabled) {
-    throw new Error('バックアップが停止中です。startBackup を実行してからやり直してください。');
-  }
-  const spreadsheet = getMonthlyBackupSpreadsheet_(new Date());
-  console.log('バックアップ準備完了：' + spreadsheet.getUrl());
-}
-
-/**
- * 7年保存のための計画確認です。テスト用データは一切作りません。
- */
-function showSevenYearBackupPlan() {
-  const months = 7 * 12;
-  const maxEventsPerDay = SECRETARY.maxThreads * (24 * 60 / 5);
-  const maxRowsPerMonth = maxEventsPerDay * 31;
-  const maxCellsPerMonth = maxRowsPerMonth * SECRETARY.backupColumns;
-  console.log(
-    '7年保存計画：月別' + months + '冊。最大でも1か月あたり約' +
-    maxRowsPerMonth.toLocaleString() + '行（約' + maxCellsPerMonth.toLocaleString() +
-    'セル）です。実際の保存量はメール件数とGoogle Driveの空き容量により変わります。'
-  );
-}
-</code></pre></div></details></div>
+        <div class="guide-section"><h3>6．配布ファイル</h3><p>実用版は同時に配布する最新の <code>Code.gs</code> を使ってください。秘密情報は含まれず、APIキーは利用者本人がスクリプトプロパティへ設定します。</p></div>
       </div>
     </section>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="fireworks" id="fireworks" aria-hidden="true"></div>
 
   <script>
     (function(){
-      const tasks=[
-        {id:1,tab:'priority',level:'urgent',label:'最優先',sender:'青葉商事・山田様',subject:'契約書の確認について',excerpt:'明日までに内容をご確認いただけますでしょうか。',status:'working',reply:'山田様\n\nご連絡いただきありがとうございます。\n契約書の内容を確認し、改めてご連絡いたします。\n\nどうぞよろしくお願いいたします。'},
-        {id:2,tab:'quick',level:'today',label:'今日',sender:'みなと企画・佐藤様',subject:'お打ち合わせ日程のご相談',excerpt:'来週火曜日の午後はいかがでしょうか。',status:'working',reply:'佐藤様\n\nご連絡ありがとうございます。\n来週火曜日の午後で承知いたしました。詳細を確認のうえ、ご連絡いたします。\n\nよろしくお願いいたします。'},
-        {id:3,tab:'working',level:'later',label:'対応中',sender:'高橋様',subject:'資料をお送りいただきありがとうございます',excerpt:'内容を確認後、改めてご連絡いたします。',status:'working',reply:'高橋様\n\n資料をお送りいただき、ありがとうございます。\n内容を確認し、必要がございましたら改めてご連絡いたします。\n\n引き続きよろしくお願いいたします。'},
-        {id:4,tab:'question',level:'question',label:'質問が必要',sender:'中央制作・鈴木様',subject:'納品形式について',excerpt:'どちらの形式で納品すればよいでしょうか。',status:'working',reply:'鈴木様\n\nご連絡いただきありがとうございます。\n納品形式について確認のうえ、改めてご案内いたします。\n\nよろしくお願いいたします。'},
-        {id:5,tab:'done',level:'done',label:'返信不要で完了',sender:'サンプルストア',subject:'商品発送のお知らせ',excerpt:'ご注文の商品を発送しました。',status:'done',reply:''}
+      const liveMode=typeof google!=='undefined'&&google.script&&google.script.run;
+      const sampleTasks=[
+        {id:'1',tab:'priority',level:'today',label:'確認待ち',score:78,sender:'佐藤さん',email:'sato@example.com',subject:'来月の制作スケジュールについて',excerpt:'次回制作分について、納期と費用感をご相談できればと思います。',status:'confirm',certainty:82,reply:'佐藤様\n\nご連絡ありがとうございます。まず希望納期をお伺いできますでしょうか。',version:1,receivedAt:new Date(Date.now()-86400000*2).toISOString(),dueAt:new Date(Date.now()+86400000).toISOString(),startAt:new Date(Date.now()-86400000*2).toISOString(),endAt:new Date(Date.now()+86400000).toISOString()},
+        {id:'2',tab:'priority',level:'later',label:'未対応',score:64,sender:'イベント事務局',email:'event@example.com',subject:'ご案内：秋の交流会について',excerpt:'参加希望の場合は今週中にお知らせください。',status:'unhandled',certainty:71,reply:'イベント事務局様\n\nご案内いただき、ありがとうございます。\n内容を確認し、改めてご連絡いたします。',version:1,receivedAt:new Date(Date.now()-86400000).toISOString(),startAt:new Date(Date.now()-86400000).toISOString(),endAt:new Date(Date.now()+86400000*3).toISOString()},
+        {id:'3',tab:'working',level:'later',label:'対応中',score:70,sender:'中村さん',email:'nakamura@example.com',subject:'資料の最終確認について',excerpt:'修正版を添付しましたので、ご確認をお願いいたします。',status:'working',certainty:88,reply:'中村様\n\n修正版をお送りいただき、ありがとうございます。\n確認のうえご連絡いたします。',version:1,receivedAt:new Date(Date.now()-86400000*3).toISOString(),startAt:new Date(Date.now()-86400000*3).toISOString(),endAt:new Date(Date.now()+86400000*2).toISOString()},
+        {id:'4',tab:'question',level:'question',label:'AI判断待ち',score:69,sender:'鈴木さん',email:'suzuki@example.com',subject:'納品形式について',excerpt:'どちらの形式で納品すればよいでしょうか。',status:'ai-wait',certainty:54,reply:'鈴木様\n\nご連絡ありがとうございます。\n納品形式を確認のうえ、改めてご案内いたします。',version:1,receivedAt:new Date(Date.now()-86400000).toISOString(),startAt:new Date(Date.now()-86400000).toISOString(),endAt:new Date(Date.now()+86400000*2).toISOString()},
+        {id:'5',tab:'done',level:'urgent',label:'返信不要・完了',score:98,sender:'山本さん',email:'yamamoto@example.com',subject:'本日15時まで：打ち合わせ時間の確認',excerpt:'本日の打ち合わせですが、開始を16時へ変更できますでしょうか。',status:'no-reply',certainty:78,reply:'山本様\n\nご連絡ありがとうございます。16時開始で問題ございません。',version:1,receivedAt:new Date(Date.now()-86400000*4).toISOString(),startAt:new Date(Date.now()-86400000*4).toISOString(),endAt:new Date(Date.now()-86400000).toISOString()},
+        {id:'6',tab:'done',level:'later',label:'送信済み・完了',score:42,sender:'高橋さん',email:'takahashi@example.com',subject:'資料受領のご連絡',excerpt:'資料を確かに受け取りました。ありがとうございました。',status:'done',certainty:91,reply:'高橋様\n\n資料を受領いたしました。ありがとうございます。',version:1,receivedAt:new Date(Date.now()-86400000*5).toISOString(),startAt:new Date(Date.now()-86400000*5).toISOString(),endAt:new Date(Date.now()-86400000*2).toISOString()}
       ];
-      let currentTab='priority';
-      let editingId=null;
-      let selectedStatus='working';
-      const titles={priority:['今日の優先','重要度と期限の高い順です'],quick:['すぐ返せる','短い返信で完了できる案件です'],working:['対応中','下書きを確認中の案件です'],question:['AIが迷い中','本人の判断や追加確認が必要です'],done:['完了','完了した記録です']};
-      const list=document.getElementById('taskList');
-      const editor=document.getElementById('editorOverlay');
-      const guide=document.getElementById('guideOverlay');
-      const reply=document.getElementById('replyText');
-      const status=document.getElementById('statusSelect');
-      const toast=document.getElementById('toast');
-
-      document.getElementById('today').textContent=new Intl.DateTimeFormat('ja-JP',{month:'long',day:'numeric',weekday:'long'}).format(new Date());
-      function counts(tab){return tasks.filter(t=>t.tab===tab).length}
-      function render(){
-        document.querySelectorAll('.tab').forEach(b=>{b.classList.toggle('active',b.dataset.tab===currentTab);b.querySelector('.count').textContent=counts(b.dataset.tab)});
-        document.getElementById('urgentCount').textContent=tasks.filter(t=>t.level==='urgent'&&t.tab!=='done').length;
-        document.getElementById('todayCount').textContent=tasks.filter(t=>['urgent','today'].includes(t.level)&&t.tab!=='done').length;
-        document.getElementById('quickCount').textContent=counts('quick');
-        document.getElementById('questionCount').textContent=counts('question');
-        document.getElementById('listTitle').textContent=titles[currentTab][0];
-        document.getElementById('listDescription').textContent=titles[currentTab][1];
-        const visible=tasks.filter(t=>t.tab===currentTab);
-        document.getElementById('visibleCount').textContent=visible.length+'件';
-        list.innerHTML=visible.length?visible.map(t=>`<article class="task ${t.level}"><div class="task-bar"></div><div><div class="meta"><span class="badge">${escapeHtml(t.label)}</span><span class="sender">${escapeHtml(t.sender)}</span></div><p class="subject">${escapeHtml(t.subject)}</p><p class="excerpt">${escapeHtml(t.excerpt)}</p></div>${t.tab==='done'?'':`<button class="open-task" data-id="${t.id}">開く</button>`}</article>`).join(''):'<div class="empty"><strong>この一覧は空です</strong><br>完了していない案件は翌日も残ります。</div>';
-        document.querySelectorAll('.open-task').forEach(b=>b.addEventListener('click',()=>openEditor(Number(b.dataset.id))));
-      }
-      function escapeHtml(value){return String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-      function setStatusValue(value){selectedStatus=value;Array.from(status.options).forEach(option=>{option.selected=option.value===value});status.value=value}
-      function getStatusValue(){return selectedStatus}
-      function openEditor(id){const task=tasks.find(t=>t.id===id);if(!task)return;editingId=id;document.getElementById('editorTitle').textContent=task.subject;document.getElementById('editorSender').textContent=task.sender;setStatusValue(task.status==='done'?'done':'working');reply.value=task.reply||'ご連絡いただきありがとうございます。\n内容を確認し、改めてご連絡いたします。\n\nよろしくお願いいたします。';checkKeigo();openOverlay(editor)}
-      function openOverlay(el){el.classList.add('open');el.setAttribute('aria-hidden','false')}
-      function closeOverlay(el){el.classList.remove('open');el.setAttribute('aria-hidden','true')}
-      function showToast(text){toast.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2300)}
-      function insertText(text){const signature='\n\nよろしくお願いいたします。';const value=reply.value;if(value.includes(signature)){reply.value=value.replace(signature,'\n'+text+signature)}else{reply.value=value.trim()+'\n'+text}reply.focus();checkKeigo()}
+      let tasks=sampleTasks,currentTab='priority',editingId=null,sendToken='',dirty=false,saveTimer=null,savingPromise=null,editGeneration=0,profile={name:'山田花子',phone:'000-0000-0000',email:'example@example.com'};
+      const timelineSelection=new Set(),list=document.getElementById('taskList'),detail=document.getElementById('detailPanel'),guide=document.getElementById('guideOverlay'),send=document.getElementById('sendOverlay'),reply=document.getElementById('replyText'),status=document.getElementById('statusSelect'),toast=document.getElementById('toast');
+      const titles={priority:['今日の優先','重要度・期限・返信の簡単さを合わせて並べています'],quick:['すぐ返せる','短い返信で完了できる案件を重複表示します'],working:['対応中','Gmailまたはアプリで編集中の案件です'],question:['AIが迷い中','質問への回答を次回の判断に学習します'],done:['完了','送信済み、または返信不要として完了した案件です']};
+      const statusHelp={unhandled:'未対応：本人もAIもまだ手を付けていません。送信されません。','ai-wait':'AI判断待ち：返信要否や内容をAIが決められず、本人の回答が必要です。',confirm:'確認待ち：AI返信案を本人が確認する段階です。まだ送信されません。',working:'対応中：Gmailまたはアプリで下書きを編集中です。',hold:'保留：後で対応します。翌日以降も未完了として残ります。','no-reply':'返信不要・完了：送信せず完了し、Gmail同期でも送信済みに変えません。',done:'送信済み・完了：アプリからGmail送信が成功し、送信履歴に残った状態です。','send-unknown':'送信結果を確認：通信が切れたため再送せず、Gmail送信済みを確認します。'};
+      document.getElementById('today').textContent=new Intl.DateTimeFormat('ja-JP',{month:'long',day:'numeric',weekday:'long',timeZone:'Asia/Tokyo'}).format(new Date());
+      function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+      function gas(name,payload){return new Promise((resolve,reject)=>{let runner=google.script.run.withSuccessHandler(resolve).withFailureHandler(error=>reject(new Error(error&&error.message||String(error))));if(payload===undefined)runner[name]();else runner[name](payload)})}
+      function byId(id){return tasks.find(task=>String(task.id)===String(id))}
+      function updateTask(next){const index=tasks.findIndex(task=>String(task.id)===String(next.id));if(index>=0)tasks[index]={...tasks[index],...next};else tasks.push(next);return tasks[index>=0?index:tasks.length-1]}
+      function signatureText(){return [profile.name,profile.phone?'TEL '+profile.phone:'',profile.email].filter(Boolean).join('\n')}
+      function stripSignatureClient(text){const value=String(text||'').trim(),signature=signatureText();return signature&&value.endsWith(signature)?value.slice(0,-signature.length).trim():value}
+      function journalKey(){return 'morning-mail-secretary-draft-'+String(editingId||'')}
+      function writeJournal(){if(!liveMode||!editingId)return;try{localStorage.setItem(journalKey(),JSON.stringify({body:reply.value,savedAt:Date.now()}))}catch(e){}}
+      function clearJournal(){try{localStorage.removeItem(journalKey())}catch(e){}}
+      function quickTasks(){return tasks.filter(t=>!['done','no-reply','ai-wait','send-unknown'].includes(t.status)&&stripSignatureClient(t.reply).length<=260)}
+      function visibleTasks(){if(currentTab==='quick')return quickTasks();return tasks.filter(t=>t.tab===currentTab)}
+      function count(tab){if(tab==='timeline')return tasks.filter(t=>!t.timelineHidden).length;if(tab==='quick')return quickTasks().length;return tasks.filter(t=>t.tab===tab).length}
+      function showToast(text){toast.textContent=text;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),2800)}
+      function celebrate(){const box=document.getElementById('fireworks'),colors=['#e0a12b','#55a878','#c65b50','#6d8fb1','#9068b4'];box.innerHTML='';for(let i=0;i<44;i++){const spark=document.createElement('i'),angle=Math.PI*2*i/44,distance=70+Math.random()*190;spark.className='spark';spark.style.setProperty('--x',Math.cos(angle)*distance+'px');spark.style.setProperty('--y',Math.sin(angle)*distance+'px');spark.style.setProperty('--spark',colors[i%colors.length]);spark.style.animationDelay=(Math.random()*.15)+'s';box.appendChild(spark)}setTimeout(()=>box.innerHTML='',1300)}
+      function stateColor(state){return ({unhandled:'#7b8580','ai-wait':'#7b59a2',confirm:'#c47a20',working:'#3d76a6',hold:'#9b7d29','no-reply':'#39725e',done:'#326452','send-unknown':'#bd4f43'})[state]||'#6d7974'}
+      function taskCard(t){const done=t.tab==='done';return `<article class="task ${esc(t.level)}${done?' done':''}" data-card-id="${esc(t.id)}"><div class="task-bar" style="background:${stateColor(t.status)}"></div><div><div class="meta"><b class="avatar">${esc(t.sender.charAt(0))}</b><strong class="sender">${esc(t.sender)}</strong><span class="badge" style="background:${stateColor(t.status)}">${esc(t.label)}</span></div><p class="subject">${esc(t.subject)}</p><p class="excerpt">${esc(t.excerpt)}</p><footer><span>優先度 ${esc(t.score)}</span><span>${esc(statusHelp[t.status]?.split('：')[0]||t.label)}</span><span>${t.dueAt?'期限 '+new Intl.DateTimeFormat('ja-JP',{month:'numeric',day:'numeric'}).format(new Date(t.dueAt)):'期限未設定'}</span></footer></div>${done?'':`<button class="open-task" data-id="${esc(t.id)}">開く</button>`}</article>`}
+      function render(){document.querySelectorAll('.tab').forEach(b=>{b.classList.toggle('active',b.dataset.tab===currentTab);b.querySelector('.count').textContent=count(b.dataset.tab)});const unresolved=tasks.filter(t=>t.tab!=='done'),since=Date.now()-86400000,new24=unresolved.filter(t=>new Date(t.receivedAt||0).getTime()>=since).length;document.getElementById('new24Count').textContent=new24+'件';document.getElementById('carryCount').textContent=Math.max(0,unresolved.length-new24)+'件';document.getElementById('urgentCount').textContent=tasks.filter(t=>t.tab!=='done'&&t.level==='urgent').length;document.getElementById('todayCount').textContent=tasks.filter(t=>t.tab==='priority').length;document.getElementById('quickCount').textContent=count('quick');document.getElementById('questionCount').textContent=count('question');const head=document.querySelector('.list-head');if(currentTab==='timeline'){head.style.display='none';list.innerHTML=renderTimeline();bindTimeline();return}head.style.display='flex';document.getElementById('listTitle').textContent=titles[currentTab][0];document.getElementById('listDescription').textContent=titles[currentTab][1];const visible=visibleTasks();document.getElementById('visibleCount').textContent=visible.length+'件';list.innerHTML=visible.length?visible.map(taskCard).join(''):'<div class="empty"><strong>この一覧は空です</strong><br>未対応・保留は日付が変わっても削除されません。</div>';document.querySelectorAll('.open-task').forEach(b=>b.onclick=e=>{e.stopPropagation();openDetail(b.dataset.id)});document.querySelectorAll('.task.done').forEach(c=>c.onclick=()=>openDetail(c.dataset.cardId))}
+      function timelineRows(){const grouped=new Map();tasks.filter(t=>!t.timelineHidden).forEach(t=>{const key=t.groupId?'group:'+t.groupId:'task:'+t.id;if(!grouped.has(key))grouped.set(key,{...t,memberIds:[String(t.id)],memberSubjects:[t.subject]});else{const row=grouped.get(key);row.memberIds.push(String(t.id));row.memberSubjects.push(t.subject);const starts=[row.startAt||row.receivedAt,t.startAt||t.receivedAt].filter(Boolean).sort();const ends=[row.endAt||row.dueAt,t.endAt||t.dueAt].filter(Boolean).sort();row.startAt=starts[0]||row.startAt;row.endAt=ends[ends.length-1]||row.endAt;if((t.score||0)>(row.score||0))Object.assign(row,{status:t.status,label:t.label,score:t.score,level:t.level})}});return [...grouped.values()].map(row=>{if(row.memberIds.length>1){row.subject=`合併案件（${row.memberIds.length}件）`;row.sender=[...new Set(row.memberIds.map(id=>byId(id)?.sender).filter(Boolean))].join('・')}return row})}
+      function encodedIds(ids){return encodeURIComponent(JSON.stringify(ids))}
+      function decodedIds(value){try{return JSON.parse(decodeURIComponent(value||''))}catch(e){return []}}
+      function renderTimeline(){const rows=timelineRows(),hidden=tasks.filter(t=>t.timelineHidden).length;const start=new Date();start.setHours(0,0,0,0);start.setDate(start.getDate()-6);const days=10,dayMs=86400000;const dayCells=Array.from({length:days},(_,i)=>{const d=new Date(start.getTime()+i*dayMs);return `<span class="${i===6?'current-day':''}">${d.getMonth()+1}/${d.getDate()}<br>${'日月火水木金土'[d.getDay()]}</span>`}).join('');const rowHtml=rows.map(t=>{const s=new Date(t.startAt||t.receivedAt||start),e=new Date(t.endAt||t.dueAt||Math.max(Date.now(),s.getTime()+dayMs)),ids=encodedIds(t.memberIds);const left=Math.max(0,Math.min(94,(s-start)/dayMs/days*100)),right=Math.max(left+4,Math.min(100,(e-start)/dayMs/days*100));return `<div class="case-row"><div class="case-info"><strong><input class="case-select" type="checkbox" data-ids="${ids}">${esc(t.subject)}</strong><small>${esc(t.sender)}・受信 ${s.getMonth()+1}/${s.getDate()}</small></div><div class="case-grid"><span class="case-bar" data-ids="${ids}" style="left:${left}%;width:${right-left}%;background:${stateColor(t.status)}">${esc(statusHelp[t.status]?.split('：')[0]||t.label)}<br><small>${e.getMonth()+1}/${e.getDate()}まで</small><button class="bar-resize" aria-label="終了日を伸縮"></button></span></div></div>`}).join('');return `<div class="timeline-wrap"><div class="timeline-toolbar"><div><span class="timeline-eyebrow">CASE TIMELINE</span><div class="timeline-title">案件進捗</div><p>チェックして一本に合併・非表示。棒の右端を指で動かして終了日を変えられます。</p></div><div class="timeline-actions"><button class="merge-button">選択した案件を一本に合併</button><button class="merge-button delete-timeline">選択した棒を非表示</button>${hidden?`<button class="merge-button restore-timeline">非表示${hidden}件を戻す</button>`:''}</div></div><div class="timeline-legend">${Object.keys(statusHelp).slice(0,7).map(s=>`<span style="color:${stateColor(s)}">${esc(statusHelp[s].split('：')[0])}</span>`).join('')}</div><section class="timeline-board"><div class="timeline-days"><strong>案件・受信日</strong>${dayCells}</div>${rowHtml||'<div class="empty">表示する案件はありません</div>'}</section></div>`}
+      function bindTimeline(){document.querySelectorAll('.case-select').forEach(c=>{const ids=decodedIds(c.dataset.ids);c.checked=ids.every(id=>timelineSelection.has(id));c.onchange=()=>ids.forEach(id=>c.checked?timelineSelection.add(id):timelineSelection.delete(id))});const merge=document.querySelector('.merge-button:not(.delete-timeline):not(.restore-timeline)'),del=document.querySelector('.delete-timeline'),restore=document.querySelector('.restore-timeline');if(merge)merge.onclick=()=>timelineAction('merge');if(del)del.onclick=()=>timelineAction('delete');if(restore)restore.onclick=()=>timelineAction('show-all');document.querySelectorAll('.bar-resize').forEach(handle=>handle.onpointerdown=startResize)}
+      async function timelineAction(action){const ids=[...timelineSelection];if(!ids.length&&action!=='show-all')return showToast('案件を選択してください');try{if(liveMode)await gas('apiUpdateTimeline',{action,ids});else if(action==='delete')tasks.filter(t=>ids.includes(String(t.id))).forEach(t=>t.timelineHidden=true);else if(action==='show-all')tasks.forEach(t=>t.timelineHidden=false);else{const group='group-'+Date.now();tasks.filter(t=>ids.includes(String(t.id))).forEach(t=>t.groupId=group)}timelineSelection.clear();if(liveMode)await refreshLive(true);else render();showToast(action==='merge'?'選択した案件を一本に合併しました':action==='show-all'?'非表示の案件を戻しました':'進捗表から非表示にしました')}catch(e){showToast(e.message)}}
+      function startResize(event){event.preventDefault();const bar=event.currentTarget.closest('.case-bar'),ids=decodedIds(bar.dataset.ids),members=ids.map(byId).filter(Boolean),grid=bar.parentElement,startX=event.clientX,originalWidth=bar.getBoundingClientRect().width,gridWidth=grid.getBoundingClientRect().width,starts=members.map(t=>new Date(t.startAt||t.receivedAt)).filter(d=>!isNaN(d)),ends=members.map(t=>new Date(t.endAt||t.dueAt||Date.now())).filter(d=>!isNaN(d)),baseStart=new Date(Math.min(...starts.map(d=>d.getTime()))),baseEnd=new Date(Math.max(...ends.map(d=>d.getTime())));const move=e=>{bar.style.width=Math.max(4,(originalWidth+e.clientX-startX)/gridWidth*100)+'%'};const up=async e=>{window.removeEventListener('pointermove',move);window.removeEventListener('pointerup',up);const deltaDays=Math.round((e.clientX-startX)/gridWidth*10),end=new Date(Math.max(baseStart.getTime(),baseEnd.getTime()+deltaDays*86400000));members.forEach(t=>{t.startAt=baseStart.toISOString();t.endAt=end.toISOString()});try{if(liveMode)await gas('apiUpdateTimeline',{action:'resize',ids,startAt:baseStart.toISOString(),endAt:end.toISOString()});if(liveMode)await refreshLive(true);else render()}catch(error){showToast(error.message);render()}};window.addEventListener('pointermove',move);window.addEventListener('pointerup',up)}
+      function setStatusValue(value){[...status.options].forEach(o=>o.selected=o.value===value);status.value=value;applyStatusStyle(value)}
+      function getStatusValue(){return status.value||([...status.options].find(o=>o.selected)||{}).value||'confirm'}
+      function applyStatusStyle(value){status.className='state-'+value;document.getElementById('statusHelp').textContent=statusHelp[value]||''}
+      function renderDetailFooter(t){const footer=document.getElementById('detailFooter');if(['no-reply','done'].includes(t.status)){footer.innerHTML=`<div class="done-confirm"><span class="check">✓</span><div><strong>${t.status==='no-reply'?'返信不要として完了済み':'Gmailから送信済み'}</strong><small>${t.status==='done'?'Gmailの送信履歴に残っています':'メールは送信していません'}</small></div><button class="done-button" id="finishDone">済み</button></div>`;document.getElementById('finishDone').onclick=async()=>{if(await closeDetail()){currentTab='priority';render()}}}else{footer.innerHTML='<div class="detail-actions"><button class="button" id="holdTask">保留</button><button class="button primary" id="previewSend">承認する</button></div><p class="learning-note">承認すると署名付きGmail下書きを作り、最終確認画面を開きます。まだ送信されません。</p>';document.getElementById('holdTask').onclick=holdCurrent;document.getElementById('previewSend').onclick=approveCurrent}}
+      function fillDetail(t,replaceBody=true){editingId=String(t.id);detail.classList.toggle('urgent-panel',t.level==='urgent');document.getElementById('detailPriority').textContent=t.level==='urgent'?'緊急':'優先';document.getElementById('certaintyValue').textContent=t.certainty+'%';document.getElementById('editorTitle').textContent=t.subject;document.getElementById('editorSender').textContent=t.sender;document.getElementById('detailAvatar').textContent=t.sender.charAt(0);document.getElementById('detailEmail').textContent=t.email;document.getElementById('detailIncoming').textContent=t.excerpt;document.getElementById('aiQuestion').classList.toggle('show',t.status==='ai-wait');if(replaceBody)reply.value=stripSignatureClient(t.reply)||'ご連絡ありがとうございます。\n内容を確認し、改めてご連絡いたします。';setStatusValue(t.status);renderDetailFooter(t);checkKeigo()}
+      function openDetail(id){const t=byId(id);if(!t)return;dirty=false;fillDetail(t);if(liveMode){try{const saved=JSON.parse(localStorage.getItem(journalKey())||'null');if(saved&&saved.body&&saved.body!==reply.value&&window.confirm('前回、送信前に閉じた可能性がある文章があります。復元しますか？')){reply.value=saved.body;dirty=true;editGeneration+=1}}catch(e){}}detail.classList.add('open');detail.setAttribute('aria-hidden','false');document.body.classList.add('detail-open')}
+      async function closeDetail(){clearTimeout(saveTimer);if(liveMode&&dirty){try{await saveCurrent()}catch(e){showToast('保存できるまで画面を閉じません');return false}}detail.classList.remove('open');detail.setAttribute('aria-hidden','true');document.body.classList.remove('detail-open');dirty=false;return true}
+      function insertText(text){reply.value=reply.value.trim()+'\n'+text;reply.focus();onReplyInput()}
       function checkKeigo(){document.getElementById('keigoBox').classList.toggle('show',/(^|[\s、。])おけ([\s、。]|$)/.test(reply.value))}
-
-      document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.tab');if(!b)return;currentTab=b.dataset.tab;render()});
-      document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeOverlay(document.getElementById(b.dataset.close))));
-      document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)closeOverlay(o)}));
-      document.getElementById('openGuide').addEventListener('click',()=>openOverlay(guide));
-      document.getElementById('openApiGuide').addEventListener('click',()=>{openOverlay(guide);setTimeout(()=>document.getElementById('apiGuide').scrollIntoView({behavior:'smooth',block:'start'}),50)});
-      document.getElementById('chips').addEventListener('click',e=>{const b=e.target.closest('.chip');if(b)insertText(b.dataset.text)});
-      status.addEventListener('change',()=>{selectedStatus=status.value});
-      reply.addEventListener('input',checkKeigo);
-      document.getElementById('applyKeigo').addEventListener('click',()=>{reply.value=reply.value.replace(/(^|[\s、。])おけ(?=[\s、。]|$)/,'$1承知いたしました。');checkKeigo()});
-      document.getElementById('saveTask').addEventListener('click',()=>{const task=tasks.find(t=>t.id===editingId);if(!task)return;const selectedStatus=getStatusValue();task.reply=reply.value.trim()||'ご連絡いただきありがとうございます。内容を確認し、改めてご連絡いたします。';task.status=selectedStatus;if(['no-reply','done'].includes(selectedStatus)){task.tab='done';task.level='done';task.label=selectedStatus==='no-reply'?'返信不要で完了':'完了';showToast(selectedStatus==='no-reply'?'送信せず、返信不要として完了しました':'完了として保存しました')}else if(selectedStatus==='hold'){task.tab='working';task.level='later';task.label='保留';showToast('保留として保存しました')}else{task.tab='working';task.level='later';task.label='対応中';showToast('見本の下書きを保存しました')}closeOverlay(editor);render()});
-      document.getElementById('copyCode').addEventListener('click',async()=>{const out=document.getElementById('copyStatus');try{await navigator.clipboard.writeText(document.getElementById('codeGs').textContent);out.textContent='コピーしました。'}catch(error){out.textContent='コピーできませんでした。コードを選択してコピーしてください。'}});
-      render();
+      function onReplyInput(){dirty=true;editGeneration+=1;writeJournal();checkKeigo();clearTimeout(saveTimer);if(liveMode)saveTimer=setTimeout(saveCurrent,400)}
+      async function resolveSaveConflict(localText){const data=await gas('apiGetDashboard');tasks=data.tasks||[];profile=data.profile||profile;const server=byId(editingId);if(!server)throw new Error('案件を再読込できませんでした');const useGmail=window.confirm('同じ下書きがGmailまたは別の画面でも変更されました。\n\nOK：Gmail側の文章を表示\nキャンセル：この画面の文章を残して、もう一度保存');render();if(useGmail){reply.value=stripSignatureClient(server.reply);dirty=false;clearJournal();fillDetail(server,false);showToast('Gmail側の最新版を表示しました');return false}reply.value=localText;dirty=true;writeJournal();editGeneration+=1;fillDetail(server,false);showToast('この画面の文章を残しました。再保存します');return true}
+      async function saveCurrent(){const t=byId(editingId);if(!liveMode||!dirty||!t)return t;if(savingPromise){await savingPromise;return dirty?saveCurrent():byId(editingId)}clearTimeout(saveTimer);const snapshot=reply.value,generation=editGeneration,id=String(t.id),version=Number(t.version||0);savingPromise=(async()=>{try{const result=await gas('apiSaveBody',{id,body:snapshot,version});updateTask(result.task);dirty=!(reply.value===snapshot&&editGeneration===generation);if(!dirty)clearJournal();return result.task}catch(e){if(/変更|比較|Gmail側/.test(e.message)){const retry=await resolveSaveConflict(reply.value);return retry?null:byId(editingId)}showToast(e.message);throw e}})();try{await savingPromise}finally{savingPromise=null}return dirty?saveCurrent():byId(editingId)}
+      async function holdCurrent(){const t=byId(editingId);if(!t)return;try{if(liveMode){if(dirty)await saveCurrent();const current=byId(editingId),result=await gas('apiHold',{id:String(current.id),version:Number(current.version||0)});updateTask(result.task)}else Object.assign(t,{status:'hold',tab:'working',label:'保留'});setStatusValue('hold');render();renderDetailFooter(byId(editingId));showToast('保留として保存しました。翌日も残ります')}catch(e){showToast(e.message)}}
+      async function completeNoReply(){const t=byId(editingId);if(!t)return;try{let next;if(liveMode){if(dirty)await saveCurrent();const current=byId(editingId),result=await gas('apiSetStatus',{id:String(current.id),state:'no-reply',version:Number(current.version||0)});next=updateTask(result.task)}else{next=t;Object.assign(next,{reply:reply.value,status:'no-reply',tab:'done',label:'返信不要・完了'})}render();fillDetail(next,false);celebrate();showToast('送信せず、返信不要として完了しました')}catch(e){setStatusValue(t.status);showToast(e.message)}}
+      function fillPreview(preview){const meta=document.querySelector('.gmail-meta');meta.innerHTML=`<b>差出人</b><strong>${esc(preview.from||profile.email)}</strong><b>宛先</b><strong>${esc(preview.to)}</strong>${preview.cc?`<b>CC</b><strong>${esc(preview.cc)}</strong>`:''}${preview.bcc?`<b>BCC</b><strong>${esc(preview.bcc)}</strong>`:''}<b>件名</b><strong>${esc(preview.subject)}</strong>${preview.attachments?.length?`<b>添付</b><strong>${preview.attachments.map(esc).join('<br>')}</strong>`:''}`;document.getElementById('previewBody').textContent=preview.body;document.getElementById('previewMode').textContent=liveMode?'Gmail下書きの実データ':'公開見本・送信されません';const warning=document.getElementById('sendWarning');warning.innerHTML=liveMode?'<strong>このボタンでGmailから送信します</strong>送信後はGmailの「送信済み」に残ります。内容を直す場合は「編集に戻る」、今は送らない場合は「保留」を選んでください。<br><a href="https://mail.google.com/mail/u/0/#drafts" target="_blank" rel="noopener">Gmail下書きを別画面で確認</a>':'<strong>これは公開用の画面見本です</strong>GitHub Pagesから実メールは送信されません。実用版は本人専用Apps Script Webアプリで開きます。';send.classList.add('open');send.setAttribute('aria-hidden','false')}
+      async function approveCurrent(){const t=byId(editingId);if(!t)return;try{if(liveMode){if(dirty)await saveCurrent();const current=byId(editingId),result=await gas('apiApproveAndPreview',{id:String(current.id),body:reply.value,version:Number(current.version||0)});sendToken=result.token;const next=updateTask(result.task);reply.value=stripSignatureClient(next.reply);fillPreview(result.preview)}else{sendToken='demo';const body=reply.value.trim()+`\n\n${profile.name}\nTEL ${profile.phone}\n${profile.email}`;fillPreview({from:profile.email,to:t.email,subject:'Re: '+t.subject,body})}}catch(e){showToast(e.message)}}
+      function closePreview(){send.classList.remove('open');send.setAttribute('aria-hidden','true')}
+      async function confirmSend(){if(!liveMode){return showToast('実送信はApps Script Webアプリ版で利用できます')}const token=sendToken;sendToken='';document.getElementById('demoSend').disabled=true;try{const result=await gas('apiConfirmSend',{token});const next=updateTask(result.task);closePreview();render();fillDetail(next,false);celebrate();showToast('Gmailから送信しました。送信履歴にも保存されています')}catch(e){closePreview();await refreshLive(true,true);showToast(e.message)}finally{document.getElementById('demoSend').disabled=false}}
+      async function changeStatus(value){const t=byId(editingId);if(!t)return;applyStatusStyle(value);if(value==='no-reply')return completeNoReply();if(value==='done'){showToast('送信済みはアプリから送信成功後に自動で変わります');return setStatusValue(t.status)};try{if(liveMode){if(dirty)await saveCurrent();const current=byId(editingId),result=await gas('apiSetStatus',{id:String(current.id),state:value,version:Number(current.version||0)});updateTask(result.task)}else{t.status=value;t.tab=value==='working'||value==='hold'?'working':value==='ai-wait'||value==='send-unknown'?'question':'priority';t.label=statusHelp[value].split('：')[0]}render();renderDetailFooter(byId(editingId));showToast(statusHelp[value].split('：')[0]+'へ変更しました')}catch(e){setStatusValue(t.status);showToast(e.message)}}
+      async function answerAiQuestion(answer){const t=byId(editingId);if(!t)return;try{let next;if(liveMode){const result=await gas('apiAnswerAiQuestion',{id:String(t.id),answer,version:Number(t.version||0)});next=updateTask(result.task)}else{next=t;next.status=answer==='reply'?'confirm':answer==='hold'?'hold':'no-reply';next.tab=next.status==='confirm'?'priority':next.status==='hold'?'working':'done';next.label=statusHelp[next.status].split('：')[0]}render();fillDetail(next,false);if(answer==='no-reply'){celebrate();showToast('返信不要として完了しました')}else showToast('回答を学習し、状態を更新しました')}catch(e){showToast(e.message)}}
+      async function refreshLive(silent=false,force=false){if(!liveMode||(!force&&dirty))return;try{const data=await gas('apiGetDashboard');tasks=data.tasks||[];profile=data.profile||profile;const connection=document.getElementById('connectionState');connection.textContent='Gmail接続済み・10秒ごとに同期';connection.classList.add('live');const signature=document.querySelector('.signature-box span');if(signature)signature.innerHTML=`${esc(profile.name)}<br>TEL ${esc(profile.phone)}<br>${esc(profile.email)}`;render();if(editingId&&detail.classList.contains('open')){const t=byId(editingId);if(t)fillDetail(t)}}catch(e){document.getElementById('connectionState').textContent='接続エラー';if(!silent)showToast(e.message)}}
+      function openGuideAt(id){guide.classList.add('open');guide.setAttribute('aria-hidden','false');setTimeout(()=>document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'}),60)}
+      document.getElementById('tabs').onclick=async e=>{const b=e.target.closest('.tab');if(!b)return;if(!await closeDetail())return;currentTab=b.dataset.tab;render()};document.getElementById('closeDetail').onclick=closeDetail;document.getElementById('closeSend').onclick=closePreview;document.getElementById('backToEdit').onclick=closePreview;document.getElementById('previewHold').onclick=()=>{closePreview();holdCurrent()};document.getElementById('demoSend').onclick=confirmSend;
+      document.getElementById('chips').onclick=e=>{const b=e.target.closest('.chip');if(b)insertText(b.dataset.text)};reply.addEventListener('input',onReplyInput);document.getElementById('applyKeigo').onclick=()=>{reply.value=reply.value.replace(/(^|[\s、。])おけ(?=[\s、。]|$)/,'$1承知いたしました。');onReplyInput()};status.onchange=event=>changeStatus(event.detail||getStatusValue());
+      document.getElementById('aiQuestion').onclick=e=>{const b=e.target.closest('[data-answer]');if(b)answerAiQuestion(b.dataset.answer)};
+      document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>{const el=document.getElementById(b.dataset.close);el.classList.remove('open');el.setAttribute('aria-hidden','true')});document.querySelectorAll('.overlay').forEach(o=>o.onclick=e=>{if(e.target===o){o.classList.remove('open');o.setAttribute('aria-hidden','true')}});document.getElementById('openAiGuide').onclick=()=>openGuideAt('securityGuide');document.getElementById('openSettings').onclick=()=>openGuideAt('apiGuide');
+      document.getElementById('learnStyle').onclick=async()=>{if(!liveMode)return showToast('Apps Script Webアプリで実行できます');showToast('過去の送信済みメールから文体を学習中です');try{const result=await gas('learnMyWritingStyle');showToast(result.sampleCount+'通から文体を学習しました')}catch(e){showToast(e.message)}};
+      document.getElementById('backupButton').onclick=async()=>{try{const data=liveMode?await gas('apiExportBackup'):{savedAt:new Date().toISOString(),tasks,note:'公開見本データ'};const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='morning-mail-secretary-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);showToast(liveMode?'Google Drive全体と現在案件を端末へ保存しました':'見本データを保存しました')}catch(e){showToast(e.message)}};
+      document.getElementById('restoreButton').onclick=()=>{const input=document.createElement('input');input.type='file';input.accept='.json,application/json';input.onchange=async()=>{let data;try{data=JSON.parse(await input.files[0].text());if(!Array.isArray(data.tasks))throw new Error('tasksがありません');if(liveMode){if(!window.confirm('現在の状態を先にGoogle Driveへ保存します。バックアップ内の同じ案件を上書きし、バックアップにない現在案件は残して復元しますか？'))return;const result=await gas('apiRestoreTasks',{tasks:data.tasks,overwrite:true});dirty=false;await refreshLive(true,true);showToast(result.restored+'件を上書き復元しました')}else{tasks=data.tasks;render();showToast('見本データを復元しました')}}catch(e){if(liveMode&&data&&/保存データを開けません/.test(e.message)&&window.confirm('元の保存表を開けません。新しい保存表を作り、このJSONから復元しますか？')){try{const result=await gas('apiRecreateDataStore',{tasks:data.tasks,confirmation:'新しい保存表を作成して復元'});dirty=false;await refreshLive(true,true);showToast(result.restored+'件を新しい保存表へ復元しました');return}catch(recreateError){showToast('再作成できません：'+recreateError.message);return}}showToast('復元できません：'+e.message)}};input.click()};
+      document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'&&liveMode&&dirty)saveCurrent().catch(()=>{})});
+      window.addEventListener('beforeunload',event=>{if(!liveMode||!dirty)return;saveCurrent().catch(()=>{});event.preventDefault();event.returnValue=''});
+      render();if(liveMode){refreshLive();setInterval(()=>{if(document.visibilityState==='visible')refreshLive(true)},10000)}else document.getElementById('connectionState').textContent='公開見本・Gmail未接続';
     }());
   </script>
 </body>
